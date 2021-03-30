@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import br.com.JL.compiler.exceptions.JLLexicalException;
+import br.com.JL.compiler.lexico.Lexeme;
 
 public class JLScanner {
 	private char[] content;
@@ -60,6 +61,30 @@ public class JLScanner {
 				else if(isOperator(currentChar)) {
 					estado = 5;
 				}
+				else if(isParOn(currentChar)) {
+					term += currentChar;
+					estado = 6;
+				}
+				else if(isParOff(currentChar)) {
+					term += currentChar;
+					estado = 7;
+				}
+				else if(isSep(currentChar)) {
+					term += currentChar;
+					estado = 8;
+				}
+				else if(isTerminal(currentChar)) {
+					term += currentChar;
+					estado = 9;
+				}
+				else if(isBracesOn(currentChar)) {
+					term += currentChar;
+					estado = 10;
+				}
+				else if(isBracesOff(currentChar)) {
+					term += currentChar;
+					estado = 11;
+				}
 				else {
 					throw new JLLexicalException("Unrecognized SYMBOL");
 				}
@@ -80,7 +105,7 @@ public class JLScanner {
 				back();
 				// so adicionar o if
 				token = new Token();
-				token.setType(Token.TK_IDENTIFIER);
+				token.setType(token.ID);
 				token.setText(term);
 				token.setLine(line);
 				token.setColumn(column - term.length());
@@ -99,13 +124,43 @@ public class JLScanner {
 				break;
 			case 4:
 				token = new Token();
-				token.setType(Token.TK_NUMBER);
+				token.setType(Token.CT_INT);
+				token.setText(term);
+				back();
+				return token;
+			case 6:
+				token = new Token();
+				token.setType(Token.ON_PAR);
 				token.setText(term);
 				back();
 				return token;
 				
 			}
 		}
+	}
+	
+	private boolean isBracesOff(char c) {
+		return c =='}';
+	}
+	
+	private boolean isBracesOn(char c) {
+		return c == '{';
+	}
+	
+	private boolean isTerminal(char c) {
+		return c == ';';
+	}
+	
+	private boolean isParOn(char c) {
+		return c == '(';
+	}
+	
+	private boolean isParOff(char c) {
+		return c == ')';
+	}
+	
+	private boolean isSep(char c) {
+		return c == ',';
 	}
 	
 	private boolean isDigit(char c) {

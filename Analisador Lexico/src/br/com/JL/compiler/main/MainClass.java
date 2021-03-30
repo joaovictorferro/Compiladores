@@ -7,7 +7,7 @@ import br.com.JL.compiler.lexico.Token;
 public class MainClass {
 	public static void main (String[]args) {
 		try {
-			JLScanner sc = new JLScanner("input.isi");
+			JLScanner sc = new JLScanner("input.jvlal");
 			Token token = null;
 		
 			do {
