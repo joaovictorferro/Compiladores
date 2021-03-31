@@ -17,7 +17,7 @@ public class JLScanner {
 	public JLScanner(String filename) {
 		try {
 			line = 1;
-			column = 0;
+			column = 1;
 			String txtConteudo;
 			txtConteudo = new String(Files.readAllBytes(Paths.get(filename)),StandardCharsets.UTF_8);
 			System.out.println("DEBUG --------------------");
@@ -42,12 +42,12 @@ public class JLScanner {
 		estado = 0;
 		
 		while(true) {
-			
+			column ++;
 			currentChar = nextChar();
 			
 			switch(estado) {
 			case 0:
-				if(isChar(currentChar)) {
+				if(isLatter(currentChar)) {
 					term += currentChar;
 					estado = 1;
 				}
@@ -73,7 +73,7 @@ public class JLScanner {
 					term += currentChar;
 					estado = 8;
 				}
-				else if(isTerminal(currentChar)) {
+				else if(isSemicolon(currentChar)) {
 					term += currentChar;
 					estado = 9;
 				}
@@ -90,12 +90,13 @@ public class JLScanner {
 				}
 				break;
 			case 1:
-				if(isChar(currentChar) || isDigit(currentChar)) {
+				if(isLatter(currentChar) || isDigit(currentChar)) {
 					estado = 1;
 					term += currentChar;
 				}
-				else if(isSpace(currentChar) || isOperator(currentChar)){
+				else if(isSpace(currentChar) || isTerminal(currentChar) || isOperator(currentChar)){
 					estado = 2;
+					back();
 				}
 				else {
 					throw new JLLexicalException("Malformed Identifier");
@@ -105,7 +106,7 @@ public class JLScanner {
 				back();
 				// so adicionar o if
 				token = new Token();
-				token.setType(token.ID);
+				token.setType(Lexeme.ID);
 				token.setText(term);
 				token.setLine(line);
 				token.setColumn(column - term.length());
@@ -115,7 +116,8 @@ public class JLScanner {
 					term += currentChar;
 					estado = 3;
 				}
-				else if(!isChar(currentChar)) {
+				else if(!isLatter(currentChar)) {
+					back();
 					estado = 4;
 				}
 				else {
@@ -123,14 +125,57 @@ public class JLScanner {
 				}
 				break;
 			case 4:
+				//aqui a parte de numeral
 				token = new Token();
-				token.setType(Token.CT_INT);
+				token.setType(Lexeme.CT_INT);
 				token.setText(term);
 				back();
 				return token;
 			case 6:
 				token = new Token();
-				token.setType(Token.ON_PAR);
+				token.setType(Lexeme.ON_PAR);
+				token.setLine(line);
+				token.setColumn(column - term.length());
+				token.setText(term);
+				back();
+				return token;
+			case 7:
+				token = new Token();
+				token.setType(Lexeme.OFF_PAR);
+				token.setLine(line);
+				token.setColumn(column - term.length());
+				token.setText(term);
+				back();
+				return token;
+			case 8:
+				token = new Token();
+				token.setType(Lexeme.SEP);
+				token.setLine(line);
+				token.setColumn(column - term.length());
+				token.setText(term);
+				back();
+				return token;
+			case 9:
+				token = new Token();
+				token.setType(Lexeme.SEMICOLON);
+				token.setLine(line);
+				token.setColumn(column - term.length());
+				token.setText(term);
+				back();
+				return token;
+			case 10:
+				token = new Token();
+				token.setType(Lexeme.ON_BRACE);
+				token.setLine(line);
+				token.setColumn(column - term.length());
+				token.setText(term);
+				back();
+				return token;
+			case 11:
+				token = new Token();
+				token.setType(Lexeme.OFF_BRACE);
+				token.setLine(line);
+				token.setColumn(column - term.length());
 				token.setText(term);
 				back();
 				return token;
@@ -139,6 +184,9 @@ public class JLScanner {
 		}
 	}
 	
+	private boolean isTerminal(char c) {
+		return c =='}' || c == ';' || c == '{' || c == '(' || c == ')' || c == ',';
+	}
 	private boolean isBracesOff(char c) {
 		return c =='}';
 	}
@@ -147,7 +195,7 @@ public class JLScanner {
 		return c == '{';
 	}
 	
-	private boolean isTerminal(char c) {
+	private boolean isSemicolon(char c) {
 		return c == ';';
 	}
 	
@@ -167,7 +215,7 @@ public class JLScanner {
 		return c >= '0' && c<= '9';
 	}
 	
-	private boolean isChar(char c) {
+	private boolean isLatter(char c) {
 		return (c>= 'a' && c <= 'z' || c >= 'A' && c <= 'Z');
 	}
 	
