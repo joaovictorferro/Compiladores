@@ -116,9 +116,13 @@ public class JLScanner {
 					term += currentChar;
 					estado = 3;
 				}
-				else if(!isLatter(currentChar)) {
+				else if(isPoint(currentChar)) {
+					term += currentChar;
+					estado = 12;
+				}else if(!isLatter(currentChar)) {
 					back();
 					estado = 4;
+				
 				}
 				else {
 					throw new JLLexicalException("Unrecognized NUMBER");
@@ -179,9 +183,31 @@ public class JLScanner {
 				token.setText(term);
 				back();
 				return token;
-				
+			case 12:
+				if (isDigit(currentChar)) {
+					term += currentChar;
+					estado = 12;
+				}
+				else if(!isLatter(currentChar) && !isPoint(currentChar)) {
+					back();
+					estado = 13;
+				}
+				else {
+					throw new JLLexicalException("Unrecognized NUMBER");
+				}
+				break;
+			case 13:
+				token = new Token();
+				token.setType(Lexeme.CT_FLOAT);
+				token.setText(term);
+				back();
+				return token;	
 			}
 		}
+	}
+	
+	private boolean isPoint(char c) {
+		return c =='.';
 	}
 	
 	private boolean isTerminal(char c) {
