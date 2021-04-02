@@ -1,2 +1,4 @@
-b d d
-a
+fun int main (){
+	print("ola mundo");
+	return 0;
+}

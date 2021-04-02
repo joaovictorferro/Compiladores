@@ -1,5 +1,8 @@
 package br.com.JL.compiler.lexico;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,17 +16,19 @@ public class JLScanner {
 	private int pos;
 	private int line;
 	private int column;
+	private String term = "";
+	private BufferedReader bufferedReader;
+	String txtConteudo = "";
 	
 	public JLScanner(String filename) {
 		try {
 			line = 1;
 			column = 1;
-			String txtConteudo;
-			txtConteudo = new String(Files.readAllBytes(Paths.get(filename)),StandardCharsets.UTF_8);
-			System.out.println("DEBUG --------------------");
-			System.out.println(txtConteudo);
-			System.out.println("-----------------------------");
+			this.bufferedReader = new BufferedReader(new FileReader(new File(filename)));
+			hasNextLine();
+			txtConteudo+= " ";
 			content = txtConteudo.toCharArray();
+			//System.out.println(content.length);
 			pos = 0;
 		}catch (Exception ex) {
 			ex.printStackTrace();
@@ -32,10 +37,18 @@ public class JLScanner {
 	
 	public Token nextToken() {
 		char currentChar;
-		String term = "";
+		term = "";
 		Token token;
+		//System.out.println(content.length);
 		if (isEOF()) {
-			return null;
+			if (hasNextLine()) {
+				txtConteudo+= " ";
+				content = txtConteudo.toCharArray();
+				pos = 0;
+			}else {
+				System.out.println("sai");
+				return null;
+			}
 		}
 		
 		estado = 0;
@@ -43,6 +56,8 @@ public class JLScanner {
 		while(true) {
 			column ++;
 			currentChar = nextChar();
+//			System.out.println(currentChar);
+//			System.out.println(pos);
 			
 			switch(estado) {
 			case 0:
@@ -505,8 +520,23 @@ public class JLScanner {
 		return c == ' ' || c == '\t' || c == '\n' || c == '\r';
 	}
 	
+	public boolean hasNextLine() {
+		String s = new String();
+		try {
+			s = bufferedReader.readLine();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (s != null) {
+			txtConteudo = s;
+			++line;
+			return true;
+		}
+		return false;
+	}
+	
 	private char nextChar() {
-		return content[pos++];
+			return content[pos++];
 	}
 	
 	private boolean isEOF() {
