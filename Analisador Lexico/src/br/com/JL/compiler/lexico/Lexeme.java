@@ -25,7 +25,7 @@ public enum Lexeme {
 	OP_OR,
 	OP_CONC,
 	COMMENT,
-	RW_FUNCTION,
+	RW_FUN,
 	RW_RETURN,
 	RW_IF,
 	RW_ELSE,
@@ -51,6 +51,7 @@ public enum Lexeme {
 	RW_PROC,
 	RW_MAIN,
 	SEMICOLON,
+	RW_VOID,
 	SEP;
 
 }

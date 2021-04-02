@@ -34,7 +34,6 @@ public class JLScanner {
 		char currentChar;
 		String term = "";
 		Token token;
-		
 		if (isEOF()) {
 			return null;
 		}
@@ -47,7 +46,7 @@ public class JLScanner {
 			
 			switch(estado) {
 			case 0:
-				if(isLatter(currentChar)) {
+				if(isLetter(currentChar)) {
 					term += currentChar;
 					estado = 1;
 				}
@@ -58,7 +57,8 @@ public class JLScanner {
 				else if(isSpace(currentChar)) {
 					estado = 0;
 				}
-				else if(isOperator(currentChar)) {
+				else if(isAtr(currentChar)) {
+					term += currentChar;
 					estado = 5;
 				}
 				else if(isParOn(currentChar)) {
@@ -85,12 +85,36 @@ public class JLScanner {
 					term += currentChar;
 					estado = 11;
 				}
+				else if(isQuote(currentChar)) {
+					term += currentChar;
+					estado = 14;
+				}
+				else if(isApostrophe(currentChar)) {
+					term += currentChar;
+					estado = 16;
+				}
+				else if(isNot(currentChar)) {
+					term += currentChar;
+					estado = 19;
+				}
+				else if(isAd(currentChar)) {
+					term += currentChar;
+					estado = 21;
+				}
+				else if(isSub(currentChar)) {
+					term += currentChar;
+					estado = 22;
+				}
+				else if(isMult(currentChar)) {
+					term += currentChar;
+					estado = 23;
+				}
 				else {
 					throw new JLLexicalException("Unrecognized SYMBOL");
 				}
 				break;
 			case 1:
-				if(isLatter(currentChar) || isDigit(currentChar)) {
+				if(isLetter(currentChar) || isDigit(currentChar)) {
 					estado = 1;
 					term += currentChar;
 				}
@@ -104,22 +128,33 @@ public class JLScanner {
 				break;
 			case 2:
 				back();
-				// so adicionar o if
-				token = new Token();
-				token.setType(Lexeme.ID);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
-				return token;
+				if(LexemeTable.tokenMapping.get(term) != null){
+					token = new Token();
+					token.setType(LexemeTable.tokenMapping.get(term));
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
+				}else {
+					token = new Token();
+					token.setType(Lexeme.ID);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
+				}
 			case 3:
 				if (isDigit(currentChar)) {
 					term += currentChar;
 					estado = 3;
+					break;
 				}
-				else if(isPoint(currentChar)) {
+				char temp = nextChar();
+				back();
+				if(isPoint(currentChar) && isDigit(temp)) {
 					term += currentChar;
 					estado = 12;
-				}else if(!isLatter(currentChar)) {
+				}else if(!isLetter(currentChar) && !isPoint(currentChar)) {
 					back();
 					estado = 4;
 				
@@ -129,12 +164,25 @@ public class JLScanner {
 				}
 				break;
 			case 4:
-				//aqui a parte de numeral
 				token = new Token();
 				token.setType(Lexeme.CT_INT);
 				token.setText(term);
 				back();
 				return token;
+			case 5:
+				if (isAtr(currentChar)) {
+					term += currentChar;
+					estado = 18;
+					break;
+				}else if(isOperator(currentChar)) {
+					throw new JLLexicalException("Malformed Operator\n");
+				} else {
+					token = new Token();
+					token.setType(Lexeme.OP_ATR);
+					token.setText(term);
+					back();
+					return token;
+				}
 			case 6:
 				token = new Token();
 				token.setType(Lexeme.ON_PAR);
@@ -188,7 +236,7 @@ public class JLScanner {
 					term += currentChar;
 					estado = 12;
 				}
-				else if(!isLatter(currentChar) && !isPoint(currentChar)) {
+				else if(!isLetter(currentChar) && !isPoint(currentChar)) {
 					back();
 					estado = 13;
 				}
@@ -202,8 +250,124 @@ public class JLScanner {
 				token.setText(term);
 				back();
 				return token;	
+			case 14:
+				term += currentChar;
+				if (isQuote(currentChar)) {
+					estado = 15;
+				}
+				break;
+			case 15:
+				token = new Token();
+				token.setType(Lexeme.CT_STRING);
+				token.setText(term);
+				back();
+				return token;
+			case 16:
+				term += currentChar;
+				if (term.length() > 3){
+					throw new JLLexicalException("Malformed character\n");
+				} else if (isApostrophe(currentChar)) {
+					estado = 17;
+				}
+				break;
+			case 17:
+				token = new Token();
+				token.setType(Lexeme.CT_CHAR);
+				token.setText(term);
+				back();
+				return token;
+			case 18:
+				if (isOperator(currentChar)) {
+					throw new JLLexicalException("Malformed Operator\n");
+				} else {
+					token = new Token();
+					token.setType(Lexeme.OP_REL);
+					token.setText(term);
+					back();
+					return token;
+				}
+			case 19:
+				if (isAtr(currentChar)) {
+					term += currentChar;
+					estado = 20;
+					break;
+				}else if(isOperator(currentChar)) {
+					throw new JLLexicalException("Malformed Operator\n");
+				} else {
+					token = new Token();
+					token.setType(Lexeme.OP_NOT);
+					token.setText(term);
+					back();
+					return token;
+				}
+			case 20:
+				if (isOperator(currentChar)) {
+					throw new JLLexicalException("Malformed Operator\n");
+				} else {
+					token = new Token();
+					token.setType(Lexeme.OP_RELNOT);
+					token.setText(term);
+					back();
+					return token;
+				}
+			case 21:
+				if (!isOperator(currentChar)) {
+					token = new Token();
+					token.setType(Lexeme.OP_AD);
+					token.setText(term);
+					back();
+					return token;
+				}else {
+					throw new JLLexicalException("Malformed Operator\n");
+				}
+			case 22:
+				if (!isOperator(currentChar)) {
+					token = new Token();
+					token.setType(Lexeme.OP_SUB);
+					token.setText(term);
+					back();
+					return token;
+				}else {
+					throw new JLLexicalException("Malformed Operator\n");
+				}
+			case 23:
+				if (!isOperator(currentChar)) {
+					token = new Token();
+					token.setType(Lexeme.OP_MULT);
+					token.setText(term);
+					back();
+					return token;
+				}else {
+					throw new JLLexicalException("Malformed Operator\n");
+				}
 			}
 		}
+	}
+	
+	private boolean isMult(char c) {
+		return c == '*';
+	}
+	
+	private boolean isSub(char c) {
+		return c == '-';
+	}
+	
+	private boolean isAd(char c) {
+		return c == '+';
+	}
+	
+	private boolean isNot(char c) {
+		return c == '!';
+	}
+	private boolean isAtr(char c) {
+		return c == '=';
+	}
+	private boolean isApostrophe(char c) {
+		return c == '\'';
+	}
+	
+	private boolean isQuote(char c) {
+		return c == '"';
 	}
 	
 	private boolean isPoint(char c) {
@@ -241,12 +405,12 @@ public class JLScanner {
 		return c >= '0' && c<= '9';
 	}
 	
-	private boolean isLatter(char c) {
+	private boolean isLetter(char c) {
 		return (c>= 'a' && c <= 'z' || c >= 'A' && c <= 'Z');
 	}
 	
 	private boolean isOperator(char c) {
-		return c == '>' || c == '<' || c == '=' || c =='!';
+		return c == '>' || c == '<' || c == '=' || c =='!' || c == '+' || c == '-' || c == '*';
 	}
 	
 	private boolean isSpace(char c) {
