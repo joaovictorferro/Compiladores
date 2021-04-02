@@ -15,7 +15,6 @@ public class MainClass {
 				if(token != null) {
 					System.out.println(token);
 				}
-				System.out.println("entrei aqui na hora de verificar o prox token");
 			}while(token != null);
 		} catch(JLLexicalException ex) {
 			System.out.println("Lexical ERROR " + ex.getMessage());
