@@ -8,13 +8,14 @@ public class MainClass {
 	public static void main (String[]args) {
 		try {
 			JLScanner sc = new JLScanner("input.jvlal");
-			Token token = null;
+			Token token;
 		
 			do {
 				token = sc.nextToken();
 				if(token != null) {
 					System.out.println(token);
 				}
+				System.out.println("entrei aqui na hora de verificar o prox token");
 			}while(token != null);
 		} catch(JLLexicalException ex) {
 			System.out.println("Lexical ERROR " + ex.getMessage());

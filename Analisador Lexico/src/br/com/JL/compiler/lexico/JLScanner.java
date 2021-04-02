@@ -57,57 +57,85 @@ public class JLScanner {
 				else if(isSpace(currentChar)) {
 					estado = 0;
 				}
-				else if(isAtr(currentChar)) {
+				else if(currentChar == '=') {
 					term += currentChar;
 					estado = 5;
 				}
-				else if(isParOn(currentChar)) {
+				else if(currentChar == '(') {
 					term += currentChar;
 					estado = 6;
 				}
-				else if(isParOff(currentChar)) {
+				else if(currentChar == ')') {
 					term += currentChar;
 					estado = 7;
 				}
-				else if(isSep(currentChar)) {
+				else if(currentChar == ',') {
 					term += currentChar;
 					estado = 8;
 				}
-				else if(isSemicolon(currentChar)) {
+				else if(currentChar == ';') {
 					term += currentChar;
 					estado = 9;
 				}
-				else if(isBracesOn(currentChar)) {
+				else if(currentChar == '{') {
 					term += currentChar;
 					estado = 10;
 				}
-				else if(isBracesOff(currentChar)) {
+				else if(currentChar == '}') {
 					term += currentChar;
 					estado = 11;
 				}
-				else if(isQuote(currentChar)) {
+				else if(currentChar == '"') {
 					term += currentChar;
 					estado = 14;
 				}
-				else if(isApostrophe(currentChar)) {
+				else if(currentChar == '\'') {
 					term += currentChar;
 					estado = 16;
 				}
-				else if(isNot(currentChar)) {
+				else if(currentChar == '!') {
 					term += currentChar;
 					estado = 19;
 				}
-				else if(isAd(currentChar)) {
+				else if(currentChar == '+') {
 					term += currentChar;
 					estado = 21;
 				}
-				else if(isSub(currentChar)) {
+				else if(currentChar == '-') {
 					term += currentChar;
 					estado = 22;
 				}
-				else if(isMult(currentChar)) {
+				else if(currentChar == '*') {
 					term += currentChar;
 					estado = 23;
+				}
+				else if(currentChar == '/'){
+						term+= currentChar;
+						estado = 24;
+				}
+				else if(currentChar == '>') {
+					term+= currentChar;
+					estado = 26;
+				}
+				else if(currentChar == '<') {
+					term += currentChar;
+					estado = 28;
+				}
+				else if(currentChar == '&') {
+					term += currentChar;
+					estado = 30;
+				}
+				else if(currentChar == '|') {
+					term += currentChar;
+					estado = 31;
+				}
+				else if(currentChar == '%') {
+					term += currentChar;
+					estado = 32;
+				}
+				else if(currentChar == '#') {
+					term += currentChar;
+					estado = 33;
 				}
 				else {
 					throw new JLLexicalException("Unrecognized SYMBOL");
@@ -151,10 +179,10 @@ public class JLScanner {
 				}
 				char temp = nextChar();
 				back();
-				if(isPoint(currentChar) && isDigit(temp)) {
+				if(currentChar == '.' && isDigit(temp)) {
 					term += currentChar;
 					estado = 12;
-				}else if(!isLetter(currentChar) && !isPoint(currentChar)) {
+				}else if(!isLetter(currentChar) && currentChar != '.') {
 					back();
 					estado = 4;
 				
@@ -170,7 +198,7 @@ public class JLScanner {
 				back();
 				return token;
 			case 5:
-				if (isAtr(currentChar)) {
+				if (currentChar == '=') {
 					term += currentChar;
 					estado = 18;
 					break;
@@ -236,7 +264,7 @@ public class JLScanner {
 					term += currentChar;
 					estado = 12;
 				}
-				else if(!isLetter(currentChar) && !isPoint(currentChar)) {
+				else if(!isLetter(currentChar) && currentChar != '.') {
 					back();
 					estado = 13;
 				}
@@ -252,7 +280,7 @@ public class JLScanner {
 				return token;	
 			case 14:
 				term += currentChar;
-				if (isQuote(currentChar)) {
+				if (currentChar == '"') {
 					estado = 15;
 				}
 				break;
@@ -266,7 +294,7 @@ public class JLScanner {
 				term += currentChar;
 				if (term.length() > 3){
 					throw new JLLexicalException("Malformed character\n");
-				} else if (isApostrophe(currentChar)) {
+				} else if (currentChar == '\'') {
 					estado = 17;
 				}
 				break;
@@ -287,7 +315,7 @@ public class JLScanner {
 					return token;
 				}
 			case 19:
-				if (isAtr(currentChar)) {
+				if (currentChar == '=') {
 					term += currentChar;
 					estado = 20;
 					break;
@@ -340,65 +368,120 @@ public class JLScanner {
 				}else {
 					throw new JLLexicalException("Malformed Operator\n");
 				}
+			case 24:
+				if (currentChar == '/') {
+					term += currentChar;
+					estado = 25;
+					break;
+				}else if(isOperator(currentChar)) {
+					throw new JLLexicalException("Malformed Operator\n");
+				} else {
+					token = new Token();
+					token.setType(Lexeme.OP_DIV);
+					token.setText(term);
+					back();
+					return token;
+				}
+			case 25:
+				if(currentChar == '\n') {
+					term = "";
+					estado = 0;
+				}
+				break;
+			case 26:
+				if (currentChar == '=') {
+					term += currentChar;
+					estado = 27;
+					break;
+				}else if(isOperator(currentChar)) {
+					throw new JLLexicalException("Malformed Operator\n");
+				} else {
+					token = new Token();
+					token.setType(Lexeme.OP_GREATER);
+					token.setText(term);
+					back();
+					return token;
+				}
+			case 27:
+				if (!isOperator(currentChar)) {
+					token = new Token();
+					token.setType(Lexeme.OP_GREATEREQ);
+					token.setText(term);
+					back();
+					return token;
+				}else {
+					throw new JLLexicalException("Malformed Operator\n");
+				}
+			case 28:
+				if (currentChar == '=') {
+					term += currentChar;
+					estado = 29;
+					break;
+				}else if(isOperator(currentChar)) {
+					throw new JLLexicalException("Malformed Operator\n");
+				} else {
+					token = new Token();
+					token.setType(Lexeme.OP_LESS);
+					token.setText(term);
+					back();
+					return token;
+				}
+			case 29:
+				if (!isOperator(currentChar)) {
+					token = new Token();
+					token.setType(Lexeme.OP_LESSEQ);
+					token.setText(term);
+					back();
+					return token;
+				}else {
+					throw new JLLexicalException("Malformed Operator\n");
+				}
+			case 30:
+				if (!isOperator(currentChar)) {
+					token = new Token();
+					token.setType(Lexeme.OP_AND);
+					token.setText(term);
+					back();
+					return token;
+				}else {
+					throw new JLLexicalException("Malformed Operator\n");
+				}
+			case 31:
+				if (!isOperator(currentChar)) {
+					token = new Token();
+					token.setType(Lexeme.OP_OR);
+					token.setText(term);
+					back();
+					return token;
+				}else {
+					throw new JLLexicalException("Malformed Operator\n");
+				}
+			case 32:
+				if (!isOperator(currentChar)) {
+					token = new Token();
+					token.setType(Lexeme.OP_MOD);
+					token.setText(term);
+					back();
+					return token;
+				}else {
+					throw new JLLexicalException("Malformed Operator\n");
+				}
+			case 33:
+				if (!isOperator(currentChar)) {
+					token = new Token();
+					token.setType(Lexeme.OP_CONC);
+					token.setText(term);
+					back();
+					return token;
+				}else {
+					throw new JLLexicalException("Malformed Operator\n");
+				}
 			}
 		}
 	}
 	
-	private boolean isMult(char c) {
-		return c == '*';
-	}
-	
-	private boolean isSub(char c) {
-		return c == '-';
-	}
-	
-	private boolean isAd(char c) {
-		return c == '+';
-	}
-	
-	private boolean isNot(char c) {
-		return c == '!';
-	}
-	private boolean isAtr(char c) {
-		return c == '=';
-	}
-	private boolean isApostrophe(char c) {
-		return c == '\'';
-	}
-	
-	private boolean isQuote(char c) {
-		return c == '"';
-	}
-	
-	private boolean isPoint(char c) {
-		return c =='.';
-	}
-	
 	private boolean isTerminal(char c) {
 		return c =='}' || c == ';' || c == '{' || c == '(' || c == ')' || c == ',';
-	}
-	private boolean isBracesOff(char c) {
-		return c =='}';
-	}
-	
-	private boolean isBracesOn(char c) {
-		return c == '{';
-	}
-	
-	private boolean isSemicolon(char c) {
-		return c == ';';
-	}
-	
-	private boolean isParOn(char c) {
-		return c == '(';
-	}
-	
-	private boolean isParOff(char c) {
-		return c == ')';
-	}
-	
-	private boolean isSep(char c) {
-		return c == ',';
 	}
 	
 	private boolean isDigit(char c) {
@@ -410,7 +493,8 @@ public class JLScanner {
 	}
 	
 	private boolean isOperator(char c) {
-		return c == '>' || c == '<' || c == '=' || c =='!' || c == '+' || c == '-' || c == '*';
+		return c == '>' || c == '<' || c == '=' || c =='!' || c == '+' || c == '-' || c == '*' || c =='/' || c == '&' 
+				|| c == '|' || c =='%' || c =='#';
 	}
 	
 	private boolean isSpace(char c) {
