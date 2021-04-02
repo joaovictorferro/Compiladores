@@ -55,6 +55,16 @@ public class JLScanner {
 		
 		while(true) {
 			column ++;
+			if (isEOF()) {
+				if (hasNextLine()) {
+					txtConteudo+= " ";
+					content = txtConteudo.toCharArray();
+					pos = 0;
+				}else {
+					System.out.println("sai");
+					return null;
+				}
+			}			
 			currentChar = nextChar();
 //			System.out.println(currentChar);
 //			System.out.println(pos);
