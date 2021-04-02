@@ -39,17 +39,6 @@ public class JLScanner {
 		char currentChar;
 		term = "";
 		Token token;
-		//System.out.println(content.length);
-		if (isEOF()) {
-			if (hasNextLine()) {
-				txtConteudo+= " ";
-				content = txtConteudo.toCharArray();
-				pos = 0;
-			}else {
-				System.out.println("sai");
-				return null;
-			}
-		}
 		
 		estado = 0;
 		
@@ -66,8 +55,6 @@ public class JLScanner {
 				}
 			}			
 			currentChar = nextChar();
-//			System.out.println(currentChar);
-//			System.out.println(pos);
 			
 			switch(estado) {
 			case 0:
