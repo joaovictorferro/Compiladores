@@ -395,10 +395,16 @@ public class JLScanner {
 					return token;
 				}
 			case 25:
-				if(currentChar == '\n') {
-					term = "";
-					estado = 0;
-				}
+				estado = 0;
+				term = "";
+				if (hasNextLine()) {
+                    txtConteudo+= " ";
+                    content = txtConteudo.toCharArray();
+                    pos = 0;
+                }else {
+                    System.out.println("sai");
+                    return null;
+                }
 				break;
 			case 26:
 				if (currentChar == '=') {
