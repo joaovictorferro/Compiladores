@@ -1,4 +1,6 @@
 fun int main (){
 	print("ola mundo");
+	// sai certo
+	:
 	return 0;
 }

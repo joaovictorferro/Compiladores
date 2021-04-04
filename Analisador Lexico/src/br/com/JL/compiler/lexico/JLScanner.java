@@ -25,7 +25,7 @@ public class JLScanner {
 			line = 1;
 			column = 1;
 			this.bufferedReader = new BufferedReader(new FileReader(new File(filename)));
-			hasNextLine();
+			nextLine();
 			txtConteudo+= " ";
 			content = txtConteudo.toCharArray();
 			//System.out.println(content.length);
@@ -45,7 +45,7 @@ public class JLScanner {
 		while(true) {
 			column ++;
 			if (isEOF()) {
-				if (hasNextLine()) {
+				if (nextLine()) {
 					txtConteudo+= " ";
 					content = txtConteudo.toCharArray();
 					pos = 0;
@@ -149,6 +149,10 @@ public class JLScanner {
 					term += currentChar;
 					estado = 33;
 				}
+				else if(currentChar == ':') {
+					term+= currentChar;
+					estado = 34;
+				}
 				else {
 					throw new JLLexicalException("Unrecognized SYMBOL");
 				}
@@ -168,9 +172,9 @@ public class JLScanner {
 				break;
 			case 2:
 				back();
-				if(LexemeTable.tokenMapping.get(term) != null){
+				if(reservedWord.tokenMapping.get(term) != null){
 					token = new Token();
-					token.setType(LexemeTable.tokenMapping.get(term));
+					token.setType(reservedWord.tokenMapping.get(term));
 					token.setText(term);
 					token.setLine(line);
 					token.setColumn(column - term.length());
@@ -397,7 +401,7 @@ public class JLScanner {
 			case 25:
 				estado = 0;
 				term = "";
-				if (hasNextLine()) {
+				if (nextLine()) {
                     txtConteudo+= " ";
                     content = txtConteudo.toCharArray();
                     pos = 0;
@@ -455,45 +459,35 @@ public class JLScanner {
 					throw new JLLexicalException("Malformed Operator\n");
 				}
 			case 30:
-				if (!isOperator(currentChar)) {
 					token = new Token();
 					token.setType(Lexeme.OP_AND);
 					token.setText(term);
 					back();
 					return token;
-				}else {
-					throw new JLLexicalException("Malformed Operator\n");
-				}
 			case 31:
-				if (!isOperator(currentChar)) {
 					token = new Token();
 					token.setType(Lexeme.OP_OR);
 					token.setText(term);
 					back();
 					return token;
-				}else {
-					throw new JLLexicalException("Malformed Operator\n");
-				}
 			case 32:
-				if (!isOperator(currentChar)) {
 					token = new Token();
 					token.setType(Lexeme.OP_MOD);
 					token.setText(term);
 					back();
 					return token;
-				}else {
-					throw new JLLexicalException("Malformed Operator\n");
-				}
 			case 33:
-				if (!isOperator(currentChar)) {
 					token = new Token();
 					token.setType(Lexeme.OP_CONC);
 					token.setText(term);
 					back();
 					return token;
-				}else {
-					throw new JLLexicalException("Malformed Operator\n");
-				}
+			case 34:
+				token = new Token();
+				token.setType(Lexeme.COLON);
+				token.setText(term);
+				back();
+				return token;
 			}
 		}
 	}
@@ -523,7 +517,7 @@ public class JLScanner {
 		return c == ' ' || c == '\t' || c == '\n' || c == '\r';
 	}
 	
-	public boolean hasNextLine() {
+	public boolean nextLine() {
 		String s = new String();
 		try {
 			s = bufferedReader.readLine();

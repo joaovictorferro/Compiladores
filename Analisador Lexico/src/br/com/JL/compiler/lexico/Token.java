@@ -56,7 +56,7 @@ public class Token {
 	@Override
 	public String toString() { 
 		String format = "              [%04d, %04d] (%04d, %20s) {%s}";
-		return String.format(format, line, column, type.ordinal(), type.toString(), text);
+		return String.format(format, line-1, column, type.ordinal(), type.toString(), text);
 	}
 
 }
