@@ -421,9 +421,7 @@ public class JLScanner {
 				estado = 0;
 				term = "";
 				if (nextLine()) {
-                    txtConteudo+= " ";
                     content = txtConteudo.toCharArray();
-                    pos = 0;
                 }else {
                     System.out.println("sai");
                     return null;

@@ -27,5 +27,6 @@ public class reservedWord {
 		tokenMapping.put("toString",Lexeme.RW_TOSTRING);
 		tokenMapping.put("Null",Lexeme.RW_NULL);
 		tokenMapping.put("return",Lexeme.RW_RETURN);
+		tokenMapping.put("println",Lexeme.RW_PRINTLN);
 	}
 }
