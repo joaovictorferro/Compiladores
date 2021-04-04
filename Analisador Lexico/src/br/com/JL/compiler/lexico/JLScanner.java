@@ -26,10 +26,7 @@ public class JLScanner {
 			column = 1;
 			this.bufferedReader = new BufferedReader(new FileReader(new File(filename)));
 			nextLine();
-			txtConteudo+= " ";
 			content = txtConteudo.toCharArray();
-			//System.out.println(content.length);
-			pos = 0;
 		}catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -39,21 +36,19 @@ public class JLScanner {
 		char currentChar;
 		term = "";
 		Token token;
-		
 		estado = 0;
 		
 		while(true) {
-			column ++;
+			
 			if (isEOF()) {
 				if (nextLine()) {
-					txtConteudo+= " ";
 					content = txtConteudo.toCharArray();
-					pos = 0;
 				}else {
 					System.out.println("sai");
 					return null;
 				}
-			}			
+			}		
+			
 			currentChar = nextChar();
 			
 			switch(estado) {
@@ -208,10 +203,12 @@ public class JLScanner {
 				}
 				break;
 			case 4:
+				back();
 				token = new Token();
 				token.setType(Lexeme.CT_INT);
 				token.setText(term);
-				back();
+				token.setLine(line);
+				token.setColumn(column - term.length());
 				return token;
 			case 5:
 				if (currentChar == '=') {
@@ -221,59 +218,61 @@ public class JLScanner {
 				}else if(isOperator(currentChar)) {
 					throw new JLLexicalException("Malformed Operator\n");
 				} else {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_ATR);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}
 			case 6:
+				back();
 				token = new Token();
 				token.setType(Lexeme.ON_PAR);
 				token.setLine(line);
 				token.setColumn(column - term.length());
 				token.setText(term);
-				back();
 				return token;
 			case 7:
+				back();
 				token = new Token();
 				token.setType(Lexeme.OFF_PAR);
 				token.setLine(line);
 				token.setColumn(column - term.length());
 				token.setText(term);
-				back();
 				return token;
 			case 8:
+				back();
 				token = new Token();
 				token.setType(Lexeme.SEP);
 				token.setLine(line);
 				token.setColumn(column - term.length());
 				token.setText(term);
-				back();
 				return token;
 			case 9:
+				back();
 				token = new Token();
 				token.setType(Lexeme.SEMICOLON);
 				token.setLine(line);
 				token.setColumn(column - term.length());
 				token.setText(term);
-				back();
 				return token;
 			case 10:
+				back();
 				token = new Token();
 				token.setType(Lexeme.ON_BRACE);
 				token.setLine(line);
 				token.setColumn(column - term.length());
 				token.setText(term);
-				back();
 				return token;
 			case 11:
+				back();
 				token = new Token();
 				token.setType(Lexeme.OFF_BRACE);
 				token.setLine(line);
 				token.setColumn(column - term.length());
 				token.setText(term);
-				back();
 				return token;
 			case 12:
 				if (isDigit(currentChar)) {
@@ -289,10 +288,12 @@ public class JLScanner {
 				}
 				break;
 			case 13:
+				back();
 				token = new Token();
 				token.setType(Lexeme.CT_FLOAT);
 				token.setText(term);
-				back();
+				token.setLine(line);
+				token.setColumn(column - term.length());
 				return token;	
 			case 14:
 				term += currentChar;
@@ -301,10 +302,12 @@ public class JLScanner {
 				}
 				break;
 			case 15:
+				back();
 				token = new Token();
 				token.setType(Lexeme.CT_STRING);
 				token.setText(term);
-				back();
+				token.setLine(line);
+				token.setColumn(column - term.length());
 				return token;
 			case 16:
 				term += currentChar;
@@ -315,19 +318,23 @@ public class JLScanner {
 				}
 				break;
 			case 17:
+				back();
 				token = new Token();
 				token.setType(Lexeme.CT_CHAR);
 				token.setText(term);
-				back();
+				token.setLine(line);
+				token.setColumn(column - term.length());
 				return token;
 			case 18:
 				if (isOperator(currentChar)) {
 					throw new JLLexicalException("Malformed Operator\n");
 				} else {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_REL);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}
 			case 19:
@@ -338,48 +345,58 @@ public class JLScanner {
 				}else if(isOperator(currentChar)) {
 					throw new JLLexicalException("Malformed Operator\n");
 				} else {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_NOT);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}
 			case 20:
 				if (isOperator(currentChar)) {
 					throw new JLLexicalException("Malformed Operator\n");
 				} else {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_RELNOT);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}
 			case 21:
 				if (!isOperator(currentChar)) {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_AD);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}else {
 					throw new JLLexicalException("Malformed Operator\n");
 				}
 			case 22:
 				if (!isOperator(currentChar)) {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_SUB);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}else {
 					throw new JLLexicalException("Malformed Operator\n");
 				}
 			case 23:
 				if (!isOperator(currentChar)) {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_MULT);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}else {
 					throw new JLLexicalException("Malformed Operator\n");
@@ -392,10 +409,12 @@ public class JLScanner {
 				}else if(isOperator(currentChar)) {
 					throw new JLLexicalException("Malformed Operator\n");
 				} else {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_DIV);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}
 			case 25:
@@ -418,18 +437,22 @@ public class JLScanner {
 				}else if(isOperator(currentChar)) {
 					throw new JLLexicalException("Malformed Operator\n");
 				} else {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_GREATER);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}
 			case 27:
 				if (!isOperator(currentChar)) {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_GREATEREQ);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}else {
 					throw new JLLexicalException("Malformed Operator\n");
@@ -442,51 +465,65 @@ public class JLScanner {
 				}else if(isOperator(currentChar)) {
 					throw new JLLexicalException("Malformed Operator\n");
 				} else {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_LESS);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}
 			case 29:
 				if (!isOperator(currentChar)) {
+					back();
 					token = new Token();
 					token.setType(Lexeme.OP_LESSEQ);
 					token.setText(term);
-					back();
+					token.setLine(line);
+					token.setColumn(column - term.length());
 					return token;
 				}else {
 					throw new JLLexicalException("Malformed Operator\n");
 				}
 			case 30:
-					token = new Token();
-					token.setType(Lexeme.OP_AND);
-					token.setText(term);
-					back();
-					return token;
+				back();
+				token = new Token();
+				token.setType(Lexeme.OP_AND);
+				token.setText(term);
+				token.setLine(line);
+				token.setColumn(column - term.length());
+				return token;
 			case 31:
-					token = new Token();
-					token.setType(Lexeme.OP_OR);
-					token.setText(term);
-					back();
-					return token;
+				back();
+				token = new Token();
+				token.setType(Lexeme.OP_OR);
+				token.setText(term);
+				token.setLine(line);
+				token.setColumn(column - term.length());
+				return token;
 			case 32:
-					token = new Token();
-					token.setType(Lexeme.OP_MOD);
-					token.setText(term);
-					back();
-					return token;
+				back();
+				token = new Token();
+				token.setType(Lexeme.OP_MOD);
+				token.setText(term);
+				token.setLine(line);
+				token.setColumn(column - term.length());
+				return token;
 			case 33:
-					token = new Token();
-					token.setType(Lexeme.OP_CONC);
-					token.setText(term);
-					back();
-					return token;
+				back();
+				token = new Token();
+				token.setType(Lexeme.OP_CONC);
+				token.setText(term);
+				token.setLine(line);
+				token.setColumn(column - term.length());
+				return token;
 			case 34:
+				back();
 				token = new Token();
 				token.setType(Lexeme.COLON);
 				token.setText(term);
-				back();
+				token.setLine(line);
+				token.setColumn(column - term.length());
 				return token;
 			}
 		}
@@ -510,10 +547,6 @@ public class JLScanner {
 	}
 	
 	private boolean isSpace(char c) {
-		if (c == '\n' || c== '\r') {
-			line ++;
-			column = 0;
-		}
 		return c == ' ' || c == '\t' || c == '\n' || c == '\r';
 	}
 	
@@ -526,13 +559,17 @@ public class JLScanner {
 		}
 		if (s != null) {
 			txtConteudo = s;
+			txtConteudo+= " ";
 			++line;
+			pos = 0;
+			column = 1;
 			return true;
 		}
 		return false;
 	}
 	
 	private char nextChar() {
+			column++;
 			return content[pos++];
 	}
 	
@@ -541,6 +578,7 @@ public class JLScanner {
 	}
 	
 	private void back() {
+		column --;
 		pos--;
 	}
 }
