@@ -1,5 +1,7 @@
 # Compiladores - Linguagem Jvlal
 
+Equipe: Lucas A. Lisboa e João Victor Ferro
+
 ## Passo a Passo para Executar o Analisador Léxico (Ubuntu)
 1. Certifique-se que sua máquina possui os pacotes necessários do Java instalados. Caso não, use os seguintes comandos:
    
