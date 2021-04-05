@@ -1,6 +1,6 @@
 package src.compiler.main;
 
-import src.JLLexicalException;
+import src.exceptions.JLLexicalException;
 import src.lexico.JLScanner;
 import src.lexico.Token;
 
