@@ -4,15 +4,13 @@ proc shellSort (int array(), int n){
 		while(h < n){
 			h = h *3 +1;
 		}
-		
 h = h/3;
-
 while (h>0){
-	for (int i : h , 1 , n){
-		c = array(i);
-		j = i;
-		while ( j >= h && array (j - h) > c{
-			array(j) = array (j -h);
+			for (int i : h , 1 , n){
+				c = array(i);
+				j = i;
+				while ( j >= h && array (j - h) > c{
+					array(j) = array (j -h);
 					j = j -h ;
 				}
 					array(j) = c;
@@ -21,7 +19,7 @@ while (h>0){
 		}
 		return;
 	}
-	fun int main() {
+fun int main() {
 		int n;
 		println("Tamanho do array");
 		read(n);

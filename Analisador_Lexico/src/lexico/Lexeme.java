@@ -16,7 +16,7 @@ public enum Lexeme {
 	OP_MOD,
 	OP_GREATER,
 	OP_LESS,
-	OP_GREATEREQ,
+	OP_GRTEREQ,
 	OP_LESSEQ,
 	OP_NOT,
 	OP_AND,
@@ -51,6 +51,11 @@ public enum Lexeme {
 	RW_MAIN,
 	SEMICOLON,
 	RW_VOID,
+	UN_ID,
+	UN_CHAR,
+	UN_SYMBOL,
+	UN_OP,
+	UN_NUMBER,
 	SEP;
 
 }

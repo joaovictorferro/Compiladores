@@ -7,9 +7,8 @@ import src.lexico.Token;
 public class MainClass {
 	public static void main (String[]args) {
 		try {
-			JLScanner sc = new JLScanner("input.jvlal");
+			JLScanner sc = new JLScanner(args[0]);
 			Token token;
-		
 			do {
 				token = sc.nextToken();
 				if(token != null) {

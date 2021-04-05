@@ -1,8 +1,10 @@
 package src.lexico;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,6 +29,7 @@ public class JLScanner {
 			this.bufferedReader = new BufferedReader(new FileReader(new File(filename)));
 			nextLine();
 			content = txtConteudo.toCharArray();
+			
 		}catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -44,7 +47,6 @@ public class JLScanner {
 				if (nextLine()) {
 					content = txtConteudo.toCharArray();
 				}else {
-					System.out.println("sai");
 					return null;
 				}
 			}		
@@ -149,7 +151,12 @@ public class JLScanner {
 					estado = 34;
 				}
 				else {
-					throw new JLLexicalException("Unrecognized SYMBOL");
+					token = new Token();
+					token.setType(Lexeme.UN_SYMBOL);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				}
 				break;
 			case 1:
@@ -162,7 +169,12 @@ public class JLScanner {
 					back();
 				}
 				else {
-					throw new JLLexicalException("Malformed Identifier");
+					token = new Token();
+					token.setType(Lexeme.UN_ID);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				}
 				break;
 			case 2:
@@ -199,7 +211,12 @@ public class JLScanner {
 				
 				}
 				else {
-					throw new JLLexicalException("Unrecognized NUMBER");
+					token = new Token();
+					token.setType(Lexeme.UN_NUMBER);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				}
 				break;
 			case 4:
@@ -216,7 +233,12 @@ public class JLScanner {
 					estado = 18;
 					break;
 				}else if(isOperator(currentChar)) {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				} else {
 					back();
 					token = new Token();
@@ -284,7 +306,12 @@ public class JLScanner {
 					estado = 13;
 				}
 				else {
-					throw new JLLexicalException("Unrecognized NUMBER");
+					token = new Token();
+					token.setType(Lexeme.UN_NUMBER);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				}
 				break;
 			case 13:
@@ -312,7 +339,12 @@ public class JLScanner {
 			case 16:
 				term += currentChar;
 				if (term.length() > 3){
-					throw new JLLexicalException("Malformed character\n");
+					token = new Token();
+					token.setType(Lexeme.UN_CHAR);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				} else if (currentChar == '\'') {
 					estado = 17;
 				}
@@ -327,7 +359,12 @@ public class JLScanner {
 				return token;
 			case 18:
 				if (isOperator(currentChar)) {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				} else {
 					back();
 					token = new Token();
@@ -343,7 +380,12 @@ public class JLScanner {
 					estado = 20;
 					break;
 				}else if(isOperator(currentChar)) {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				} else {
 					back();
 					token = new Token();
@@ -355,7 +397,12 @@ public class JLScanner {
 				}
 			case 20:
 				if (isOperator(currentChar)) {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				} else {
 					back();
 					token = new Token();
@@ -375,7 +422,12 @@ public class JLScanner {
 					token.setColumn(column - term.length());
 					return token;
 				}else {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				}
 			case 22:
 				if (!isOperator(currentChar)) {
@@ -387,7 +439,12 @@ public class JLScanner {
 					token.setColumn(column - term.length());
 					return token;
 				}else {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				}
 			case 23:
 				if (!isOperator(currentChar)) {
@@ -399,7 +456,12 @@ public class JLScanner {
 					token.setColumn(column - term.length());
 					return token;
 				}else {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				}
 			case 24:
 				if (currentChar == '/') {
@@ -407,7 +469,12 @@ public class JLScanner {
 					estado = 25;
 					break;
 				}else if(isOperator(currentChar)) {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				} else {
 					back();
 					token = new Token();
@@ -433,7 +500,12 @@ public class JLScanner {
 					estado = 27;
 					break;
 				}else if(isOperator(currentChar)) {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				} else {
 					back();
 					token = new Token();
@@ -447,13 +519,18 @@ public class JLScanner {
 				if (!isOperator(currentChar)) {
 					back();
 					token = new Token();
-					token.setType(Lexeme.OP_GREATEREQ);
+					token.setType(Lexeme.OP_GRTEREQ);
 					token.setText(term);
 					token.setLine(line);
 					token.setColumn(column - term.length());
 					return token;
 				}else {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				}
 			case 28:
 				if (currentChar == '=') {
@@ -461,7 +538,12 @@ public class JLScanner {
 					estado = 29;
 					break;
 				}else if(isOperator(currentChar)) {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				} else {
 					back();
 					token = new Token();
@@ -481,7 +563,12 @@ public class JLScanner {
 					token.setColumn(column - term.length());
 					return token;
 				}else {
-					throw new JLLexicalException("Malformed Operator\n");
+					token = new Token();
+					token.setType(Lexeme.UN_OP);
+					token.setText(term);
+					token.setLine(line);
+					token.setColumn(column - term.length());
+					return token;
 				}
 			case 30:
 				back();
@@ -557,6 +644,7 @@ public class JLScanner {
 		}
 		if (s != null) {
 			txtConteudo = s;
+			printCodeLine(s);
 			txtConteudo+= " ";
 			++line;
 			pos = 0;
@@ -564,6 +652,11 @@ public class JLScanner {
 			return true;
 		}
 		return false;
+	}
+	
+	public void printCodeLine(String content) {
+		String format = "%4d  %s";
+		System.out.println(String.format(format, line, content));
 	}
 	
 	private char nextChar() {
