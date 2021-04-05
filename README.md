@@ -13,14 +13,16 @@ Equipe: Lucas A. Lisboa e João Victor Ferro
 3. Leve o arquivo .zip baixado para a raiz do seu sistema;
 4. Descompacte o arquivo;
 5. Abra o terminal;
-6. Utilize o comando:
+6. Para ir à pasta que o programa deverá ser executado, utilize o comando:
 
    ``` cd Compiladores-main/Analisador_Lexico ```
 
-7. Utilize o comando:
+7. Para compilar o programa, utilize o comando:
 
    ``` javac src.main.MainClass.java ```
    
-8. Utilize o comando: 
+8. Para executar o programa, utilize o comando: 
 
-   ``` java src.main.MainClass ```
+   ``` java src.main.MainClass arquivo_de_entrada```
+
+   Sendo `arquivo_de_entrada` o nome do arquivo que será a entrada do programa (o arquivo deve estar dentro da pasta Analisador_Lexico). Exemplo: aloMundo, Fibonacci, shellSort.
