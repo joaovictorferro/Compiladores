@@ -1,4 +1,4 @@
-package br.com.JL.compiler.lexico;
+package src.lexico;
 
 import java.util.HashMap;
 import java.util.Map;
