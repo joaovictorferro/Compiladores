@@ -1,4 +1,4 @@
-package src.compiler.main;
+package src.main;
 
 import src.exceptions.JLLexicalException;
 import src.lexico.JLScanner;
