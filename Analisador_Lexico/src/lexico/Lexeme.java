@@ -40,6 +40,7 @@ public enum Lexeme {
 	RW_TRUE,
 	RW_FALSE,
 	RW_NULL,
+	RW_LENGTH,
 	ON_PAR,
 	OFF_PAR,
 	ON_BRACE,
