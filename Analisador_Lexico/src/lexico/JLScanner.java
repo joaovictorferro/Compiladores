@@ -151,11 +151,7 @@ public class JLScanner {
 					estado = 34;
 				}
 				else {
-					token = new Token();
-					token.setType(Lexeme.UN_SYMBOL);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_SYMBOL,term,line,column - term.length());
 					return token;
 				}
 				break;
@@ -169,29 +165,17 @@ public class JLScanner {
 					back();
 				}
 				else {
-					token = new Token();
-					token.setType(Lexeme.UN_ID);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_ID,term,line,column - term.length());
 					return token;
 				}
 				break;
 			case 2:
 				back();
 				if(reservedWord.tokenMapping.get(term) != null){
-					token = new Token();
-					token.setType(reservedWord.tokenMapping.get(term));
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(reservedWord.tokenMapping.get(term),term,line,column - term.length());
 					return token;
 				}else {
-					token = new Token();
-					token.setType(Lexeme.ID);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.ID,term,line,column - term.length());
 					return token;
 				}
 			case 3:
@@ -211,21 +195,13 @@ public class JLScanner {
 				
 				}
 				else {
-					token = new Token();
-					token.setType(Lexeme.UN_NUMBER);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_NUMBER,term,line,column - term.length());
 					return token;
 				}
 				break;
 			case 4:
 				back();
-				token = new Token();
-				token.setType(Lexeme.CT_INT);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
+				token = new Token(Lexeme.CT_INT,term,line,column - term.length());
 				return token;
 			case 5:
 				if (currentChar == '=') {
@@ -233,68 +209,37 @@ public class JLScanner {
 					estado = 18;
 					break;
 				}else if(isOperator(currentChar)) {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				} else {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_ATR);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_ATR,term,line,column - term.length());
 					return token;
 				}
 			case 6:
 				back();
 				token = new Token();
-				token.setType(Lexeme.ON_PAR);
-				token.setLine(line);
-				token.setColumn(column - term.length());
-				token.setText(term);
+				token = new Token(Lexeme.ON_PAR,term,line,column - term.length());
 				return token;
 			case 7:
 				back();
-				token = new Token();
-				token.setType(Lexeme.OFF_PAR);
-				token.setLine(line);
-				token.setColumn(column - term.length());
-				token.setText(term);
+				token = new Token(Lexeme.OFF_PAR,term,line,column - term.length());
 				return token;
 			case 8:
 				back();
-				token = new Token();
-				token.setType(Lexeme.SEP);
-				token.setLine(line);
-				token.setColumn(column - term.length());
-				token.setText(term);
+				token = new Token(Lexeme.SEP,term,line,column - term.length());
 				return token;
 			case 9:
 				back();
-				token = new Token();
-				token.setType(Lexeme.SEMICOLON);
-				token.setLine(line);
-				token.setColumn(column - term.length());
-				token.setText(term);
+				token = new Token(Lexeme.SEMICOLON,term,line,column - term.length());
 				return token;
 			case 10:
 				back();
-				token = new Token();
-				token.setType(Lexeme.ON_BRACE);
-				token.setLine(line);
-				token.setColumn(column - term.length());
-				token.setText(term);
+				token = new Token(Lexeme.ON_BRACE,term,line,column - term.length());
 				return token;
 			case 11:
 				back();
-				token = new Token();
-				token.setType(Lexeme.OFF_BRACE);
-				token.setLine(line);
-				token.setColumn(column - term.length());
-				token.setText(term);
+				token = new Token(Lexeme.OFF_BRACE,term,line,column - term.length());
 				return token;
 			case 12:
 				if (isDigit(currentChar)) {
@@ -306,21 +251,13 @@ public class JLScanner {
 					estado = 13;
 				}
 				else {
-					token = new Token();
-					token.setType(Lexeme.UN_NUMBER);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_NUMBER,term,line,column - term.length());
 					return token;
 				}
 				break;
 			case 13:
 				back();
-				token = new Token();
-				token.setType(Lexeme.CT_FLOAT);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
+				token = new Token(Lexeme.CT_FLOAT,term,line,column - term.length());
 				return token;	
 			case 14:
 				term += currentChar;
@@ -330,20 +267,12 @@ public class JLScanner {
 				break;
 			case 15:
 				back();
-				token = new Token();
-				token.setType(Lexeme.CT_STRING);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
+				token = new Token(Lexeme.CT_STRING,term,line,column - term.length());
 				return token;
 			case 16:
 				term += currentChar;
 				if (term.length() > 3){
-					token = new Token();
-					token.setType(Lexeme.UN_CHAR);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_CHAR,term,line,column - term.length());
 					return token;
 				} else if (currentChar == '\'') {
 					estado = 17;
@@ -351,27 +280,15 @@ public class JLScanner {
 				break;
 			case 17:
 				back();
-				token = new Token();
-				token.setType(Lexeme.CT_CHAR);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
+				token = new Token(Lexeme.CT_CHAR,term,line,column - term.length());
 				return token;
 			case 18:
 				if (isOperator(currentChar)) {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				} else {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_REL);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_REL,term,line,column - term.length());
 					return token;
 				}
 			case 19:
@@ -380,87 +297,47 @@ public class JLScanner {
 					estado = 20;
 					break;
 				}else if(isOperator(currentChar)) {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				} else {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_NOT);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_NOT,term,line,column - term.length());
 					return token;
 				}
 			case 20:
 				if (isOperator(currentChar)) {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				} else {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_RELNOT);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_RELNOT,term,line,column - term.length());
 					return token;
 				}
 			case 21:
 				if (!isOperator(currentChar)) {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_AD);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_AD,term,line,column - term.length());
 					return token;
 				}else {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				}
 			case 22:
 				if (!isOperator(currentChar)) {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_SUB);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_SUB,term,line,column - term.length());
 					return token;
 				}else {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				}
 			case 23:
 				if (!isOperator(currentChar)) {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_MULT);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_MULT,term,line,column - term.length());
 					return token;
 				}else {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				}
 			case 24:
@@ -469,19 +346,11 @@ public class JLScanner {
 					estado = 25;
 					break;
 				}else if(isOperator(currentChar)) {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				} else {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_DIV);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_DIV,term,line,column - term.length());
 					return token;
 				}
 			case 25:
@@ -500,36 +369,20 @@ public class JLScanner {
 					estado = 27;
 					break;
 				}else if(isOperator(currentChar)) {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				} else {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_GREATER);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_GREATER,term,line,column - term.length());
 					return token;
 				}
 			case 27:
 				if (!isOperator(currentChar)) {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_GRTEREQ);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_GRTEREQ,term,line,column - term.length());
 					return token;
 				}else {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				}
 			case 28:
@@ -538,77 +391,41 @@ public class JLScanner {
 					estado = 29;
 					break;
 				}else if(isOperator(currentChar)) {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				} else {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_LESS);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_LESS,term,line,column - term.length());
 					return token;
 				}
 			case 29:
 				if (!isOperator(currentChar)) {
 					back();
-					token = new Token();
-					token.setType(Lexeme.OP_LESSEQ);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.OP_LESSEQ,term,line,column - term.length());
 					return token;
 				}else {
-					token = new Token();
-					token.setType(Lexeme.UN_OP);
-					token.setText(term);
-					token.setLine(line);
-					token.setColumn(column - term.length());
+					token = new Token(Lexeme.UN_OP,term,line,column - term.length());
 					return token;
 				}
 			case 30:
 				back();
-				token = new Token();
-				token.setType(Lexeme.OP_AND);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
+				token = new Token(Lexeme.OP_AND,term,line,column - term.length());
 				return token;
 			case 31:
 				back();
-				token = new Token();
-				token.setType(Lexeme.OP_OR);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
+				token = new Token(Lexeme.OP_OR,term,line,column - term.length());
 				return token;
 			case 32:
 				back();
-				token = new Token();
-				token.setType(Lexeme.OP_MOD);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
+				token = new Token(Lexeme.OP_MOD,term,line,column - term.length());
 				return token;
 			case 33:
 				back();
-				token = new Token();
-				token.setType(Lexeme.OP_CONC);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
+				token = new Token(Lexeme.OP_CONC,term,line,column - term.length());
 				return token;
 			case 34:
 				back();
-				token = new Token();
-				token.setType(Lexeme.COLON);
-				token.setText(term);
-				token.setLine(line);
-				token.setColumn(column - term.length());
+				token = new Token(Lexeme.COLON,term,line,column - term.length());
 				return token;
 			}
 		}
