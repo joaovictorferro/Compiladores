@@ -2,17 +2,15 @@ package src.lexico;
 
 public class Token {
 
-	//private int type;
 	private String text;
-	private Lexeme type;
+	private Lexeme tokenCategory;
 	private int    line;
 	private int    column;
 	
-	public Token(Lexeme type, String text, int line, int column) {
-		//super();
+	public Token(Lexeme tokenCategory, String text, int line, int column) {
 		this.line = line;
 		this.column = column;
-		this.type = type;
+		this.tokenCategory = tokenCategory;
 		this.text = text;
 	}
 	
@@ -20,12 +18,12 @@ public class Token {
 		super();
 	}
 	
-	public Lexeme getType() {
-		return type;
+	public Lexeme getTokenCategory() {
+		return tokenCategory;
 	}
 
-	public void setType(Lexeme id) {
-		this.type = id;
+	public void setTokenCategory(Lexeme id) {
+		this.tokenCategory = id;
 	}
 
 	public String getText() {
@@ -56,7 +54,7 @@ public class Token {
 	@Override
 	public String toString() { 
 		String format = "              [%04d, %04d] (%04d, %20s) {%s}";
-		return String.format(format, line-1, column, type.ordinal(), type.toString(), text);
+		return String.format(format, line-1, column, tokenCategory.ordinal(), tokenCategory.toString(), text);
 	}
 
 }
