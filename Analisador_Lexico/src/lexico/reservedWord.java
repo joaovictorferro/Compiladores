@@ -29,5 +29,6 @@ public class reservedWord {
 		tokenMapping.put("return",Lexeme.RW_RETURN);
 		tokenMapping.put("println",Lexeme.RW_PRINTLN);
 		tokenMapping.put("length",Lexeme.RW_LENGTH);
+		tokenMapping.put("const",Lexeme.CT_VAR);
 	}
 }

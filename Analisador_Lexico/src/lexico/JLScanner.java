@@ -17,7 +17,7 @@ public class JLScanner {
 	private int estado;
 	private int pos;
 	private int line;
-	private int column;
+	private int column ;
 	private String term = "";
 	private BufferedReader bufferedReader;
 	String txtConteudo = "";
@@ -47,7 +47,8 @@ public class JLScanner {
 				if (nextLine()) {
 					content = txtConteudo.toCharArray();
 				}else {
-					return null;
+					token = new Token(Lexeme.EOF,term,line,column - term.length());
+					return token;
 				}
 			}		
 			
@@ -481,7 +482,7 @@ public class JLScanner {
 			return content[pos++];
 	}
 	
-	private boolean isEOF() {
+	public boolean isEOF() {
 		return pos == content.length;
 	}
 	

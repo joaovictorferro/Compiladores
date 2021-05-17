@@ -1,11 +1,16 @@
 package src.lexico;
 
 public enum Lexeme {
-	ID ,
+	EOF,
+	ID,
+	CT_VAR,
 	CT_FLOAT,
 	CT_INT,
 	CT_CHAR,
 	CT_STRING,
+	CT_BOOL,
+	ON_BRACKET,
+	OFF_BRACKET,
 	OP_ATR,
 	OP_REL,
 	OP_RELNOT,
