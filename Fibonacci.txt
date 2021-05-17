@@ -1,0 +1,27 @@
+proc fib(int n) {
+		int n1 = 0, n2 = 1, n3;
+		if (n == 0) {
+			println("@d", n);
+		} 
+if (n == 1) {
+println("0, @d", n);
+		} else {
+			string separator = ",";
+			print("0, 1, ");
+			while (true) {
+				n3 = n1 + n2;
+				print("@s@d", separator, n3);
+				if (n3 >= n) {
+					return;
+				}
+				n1 = n2;
+				n2 = n3;
+			}
+		}
+}
+fun int main() {
+		int n;
+		read(n);
+		fib(n);
+		return 0;
+}
