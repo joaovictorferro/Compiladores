@@ -62,6 +62,11 @@ public class Sintatico {
 			printProduction("DeclId", "Type LId ';'");
 			fType();
 			fLId();
+			if (!checkCategory(Lexeme.SEMICOLON)){
+			} else {
+				System.out.println(currentToken);
+				setNextToken();
+			}
 		} else if (checkCategory(Lexeme.CT_VAR)) {
 			printProduction("DeclId", "'const' Type LId ';'");
 			System.out.println(currentToken);
@@ -149,10 +154,9 @@ public class Sintatico {
 			fType();
 			fFunName();
 			if (checkCategory(Lexeme.ON_PAR)) {
-				fLParamDecl();
 				System.out.println(currentToken);
 				setNextToken();
-				
+				fLParamDecl();
 				if (checkCategory(Lexeme.OFF_PAR)) {
 					System.out.println(currentToken);
 					setNextToken();
@@ -282,7 +286,7 @@ public class Sintatico {
 			printProduction("BodyPart", "DeclId BodyPart");
 			fDeclId();
 			fBodyPart();
-		} else if (checkCategory(Lexeme.RW_PRINT, Lexeme.RW_READ, Lexeme.RW_WHILE, Lexeme.RW_FOR, Lexeme.RW_IF)) {
+		} else if (checkCategory(Lexeme.RW_PRINT,Lexeme.RW_PRINTLN,Lexeme.RW_READ, Lexeme.RW_WHILE, Lexeme.RW_FOR, Lexeme.RW_IF)) {
 			printProduction("BodyPart", "Command BodyPart");
 			fCommand();
 			fBodyPart();
@@ -381,14 +385,14 @@ public class Sintatico {
 	}
 	
 	public void fCommand() {
-		if (checkCategory(Lexeme.RW_PRINT)) {
+		if (checkCategory(Lexeme.RW_PRINT) || checkCategory(Lexeme.RW_PRINTLN)) {
 			printProduction("Command", "'print' '(' 'constStr' PrintLParam ')' ';'");
 			System.out.println(currentToken);
 			setNextToken();
 			if (checkCategory(Lexeme.ON_PAR)) {
 				System.out.println(currentToken);
 				setNextToken();
-				if (checkCategory(Lexeme.CT_STRING)) {
+				if (checkCategory(Lexeme.CT_STRING, Lexeme.ID)) {
 					System.out.println(currentToken);
 					setNextToken();
 					fPrintLParam();
@@ -448,7 +452,7 @@ public class Sintatico {
 				System.out.println(currentToken);
 				setNextToken();
 				fEb();
-				if (checkCategory(Lexeme.ON_PAR)) {
+				if (checkCategory(Lexeme.OFF_PAR)) {
 					System.out.println(currentToken);
 					setNextToken();
 					fBody();
@@ -498,7 +502,7 @@ public class Sintatico {
 	
 	public void fForParams() {
 		if (checkCategory(Lexeme.ON_PAR)) {
-			printProduction("ForParams", "'(' 'typeInt' 'id' ':' '(' Ea ',' Ea ForStep ')' ')' Body");
+			printProduction("ForParams", "'(' 'typeInt' 'id' ':'  Ea ',' Ea ForStep ')' Body");
 			System.out.println(currentToken);
 			setNextToken();
 			if (checkCategory(Lexeme.RW_INT)) {
@@ -510,10 +514,7 @@ public class Sintatico {
 					if (checkCategory(Lexeme.COLON)) {
 						System.out.println(currentToken);
 						setNextToken();
-						if (checkCategory(Lexeme.ON_PAR)) {
-							System.out.println(currentToken);
-							setNextToken();
-							fEa();
+						fEa();
 							if (checkCategory(Lexeme.SEP)) {
 								System.out.println(currentToken);
 								setNextToken();
@@ -522,14 +523,10 @@ public class Sintatico {
 								if (checkCategory(Lexeme.OFF_PAR)) {
 									System.out.println(currentToken);
 									setNextToken();
-									if (checkCategory(Lexeme.OFF_PAR)) {
-										System.out.println(currentToken);
-										setNextToken();
-										fBody();
-									}
+									fBody();
 								}
-							} 
-						} 
+
+							}
 					} 
 				} 
 			} 
@@ -751,7 +748,7 @@ public class Sintatico {
 			System.out.println(currentToken);
 			setNextToken();
 			fEc();
-			if (!checkCategory(Lexeme.ON_PAR)) {
+			if (!checkCategory(Lexeme.OFF_PAR)) {
 			} else {
 				System.out.println(currentToken);
 				setNextToken();

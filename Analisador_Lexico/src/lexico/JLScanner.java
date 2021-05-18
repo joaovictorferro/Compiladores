@@ -151,6 +151,14 @@ public class JLScanner {
 					term+= currentChar;
 					estado = 34;
 				}
+				else if(currentChar == '[') {
+					term += currentChar;
+					estado = 35;
+				}
+				else if(currentChar ==']') {
+					term += currentChar;
+					estado = 36;
+				}
 				else {
 					token = new Token(Lexeme.UN_SYMBOL,term,line,column - term.length());
 					return token;
@@ -427,6 +435,14 @@ public class JLScanner {
 			case 34:
 				back();
 				token = new Token(Lexeme.COLON,term,line,column - term.length());
+				return token;		
+			case 35: 
+				back();
+				token = new Token(Lexeme.ON_BRACKET,term,line,column - term.length());
+				return token;
+			case 36: 
+				back();
+				token = new Token(Lexeme.OFF_BRACKET,term,line,column - term.length());
 				return token;
 			}
 		}
