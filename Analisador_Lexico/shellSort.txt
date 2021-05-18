@@ -1,42 +1,45 @@
-proc shellSort (int array(), int n){
+proc shellSort (int array [ ], int n){
 		int h = 1, c , j;
 		
-		while(h < n){
-			h = h *3 +1;
+		while( h < n ) {
+			h = h * 3 + 1;
 		}
-h = h/3;
-while (h>0){
+		h = h / 3;
+		while ( h > 0 ){
 			for (int i : h , 1 , n){
 				c = array(i);
 				j = i;
-				while ( j >= h && array (j - h) > c{
-					array(j) = array (j -h);
-					j = j -h ;
+				while ( j >= h & array [ j - h ] > c ) {
+					array [ j ] = array [ j - h ]; 
+					j = j - h ;
 				}
-					array(j) = c;
+					array [ j ]  = c;
 			}
-				h = h/2;
+				h = h / 2;
 		}
 		return;
 	}
-fun int main() {
+	
+	fun int main() {
 		int n;
 		println("Tamanho do array");
 		read(n);
-		int array(n);	
+		int array [ n ];	
 		println("Digite os numeros que serao ordenados");
 		for( int i : 0,1,n) {
-			read(array(i));
+			read( array [ i ] );
 		}
 		
 		println("lista dos valores digitados");
-		for (int i = 0, 1, n){
-			print(toString(array(i)) # " ");
+		for (int i : 0, 1, n){
+			int a = array [ i ];
+			println (a);
 		}
 		
 		println("valores ordenados");
-		for(int i : 0,1,n) {
-			print(toString(array(i)) # " ");
+		for(int i : 0 , 1 , n) {
+			int b = array [ i ];
+			println(b);
 		}
 		return 0; 
-}
+	}
