@@ -748,12 +748,117 @@
           BodyPart = &
               [0030, 0003] (0048,            OFF_BRACE) {}}
   31  		
-  32  		shellSort (array,n);
+  32  		println("lista dos valores digitados");
+          BodyPart = Command BodyPart
+          Command = 'println' '(' 'constStr' PrintLParam ')' ';'
+              [0032, 0003] (0040,           RW_PRINTLN) {println}
+              [0032, 0010] (0045,               ON_PAR) {(}
+              [0032, 0011] (0006,            CT_STRING) {"lista dos valores digitados"}
+          PrintLParam = &
+              [0032, 0040] (0046,              OFF_PAR) {)}
+              [0032, 0041] (0054,            SEMICOLON) {;}
+  33  		for (int i : 0, 1, n){
+          BodyPart = Command BodyPart
+          Command = 'forLoop' ForParams
+              [0033, 0003] (0031,               RW_FOR) {for}
+          ForParams = '(' 'typeInt' 'id' ':'  Ea ',' Ea ForStep ')' Body
+              [0033, 0007] (0045,               ON_PAR) {(}
+              [0033, 0008] (0032,               RW_INT) {int}
+              [0033, 0012] (0001,                   ID) {i}
+              [0033, 0014] (0050,                COLON) {:}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'constInt'
+              [0033, 0016] (0004,               CT_INT) {0}
+          Par = &
+          Tar = &
+          Ear = &
+              [0033, 0017] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'constInt'
+              [0033, 0019] (0004,               CT_INT) {1}
+          Par = &
+          Tar = &
+          Ear = &
+          ForStep = ',' Ea
+              [0033, 0020] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFunCall = 'id' IdOrFunCallr
+              [0033, 0022] (0001,                   ID) {n}
+          IdOrFunCallr = &
+          Par = &
+          Tar = &
+          Ear = &
+              [0033, 0023] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0033, 0024] (0047,             ON_BRACE) {{}
+  34  			int a = array [ i ];
+          BodyPart = DeclId BodyPart
+          DeclId = Type LId ';'
+          Type = 'int'
+              [0034, 0004] (0032,               RW_INT) {int}
+          LId = Id AttrOpt LIdr
+          Id = 'id' ArrayOpt
+              [0034, 0008] (0001,                   ID) {a}
+          ArrayOpt = &
+          AttrOpt = '=' Ec
+              [0034, 0010] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFunCall = 'id' IdOrFunCallr
+              [0034, 0012] (0001,                   ID) {array}
+          IdOrFunCallr = '[' Ea ']'
+              [0034, 0018] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFunCall = 'id' IdOrFunCallr
+              [0034, 0020] (0001,                   ID) {i}
+          IdOrFunCallr = &
+          Par = &
+          Tar = &
+          Ear = &
+              [0034, 0022] (0009,          OFF_BRACKET) {]}
+          Par = &
+          Tar = &
+          Ear = &
+          Rar = &
+          Fbr = &
+          Tbr = &
+          Ebr = &
+          Ecr = &
+          LIdr = &
+              [0034, 0023] (0054,            SEMICOLON) {;}
+  35  			println (a);
+          BodyPart = Command BodyPart
+          Command = 'println' '(' 'constStr' PrintLParam ')' ';'
+              [0035, 0004] (0040,           RW_PRINTLN) {println}
+              [0035, 0012] (0045,               ON_PAR) {(}
+              [0035, 0013] (0001,                   ID) {a}
+          PrintLParam = &
+              [0035, 0014] (0046,              OFF_PAR) {)}
+              [0035, 0015] (0054,            SEMICOLON) {;}
+  36  		}
+          BodyPart = &
+              [0036, 0003] (0048,            OFF_BRACE) {}}
+  37  		
+  38  		shellSort (array,n);
           BodyPart = BodyPartr ';' BodyPart
           BodyPartr = 'id' ParamAttr
-              [0032, 0003] (0001,                   ID) {shellSort}
+              [0038, 0003] (0001,                   ID) {shellSort}
           ParamAttrib = '(' LParamCall ')'
-              [0032, 0013] (0045,               ON_PAR) {(}
+              [0038, 0013] (0045,               ON_PAR) {(}
           LParamCall = Ec LParamCallr
           Ec = Fc Ecr
           Eb = Tb Ebr
@@ -764,7 +869,7 @@
           Ta = Pa Tar
           Pa = Fa Par
           IdOrFunCall = 'id' IdOrFunCallr
-              [0032, 0014] (0001,                   ID) {array}
+              [0038, 0014] (0001,                   ID) {array}
           IdOrFunCallr = &
           Par = &
           Tar = &
@@ -775,7 +880,7 @@
           Ebr = &
           Ecr = &
           LParamCallr = ',' Ec LParamCallr
-              [0032, 0019] (0061,                  SEP) {,}
+              [0038, 0019] (0061,                  SEP) {,}
           Ec = Fc Ecr
           Eb = Tb Ebr
           Tb = Fb Tbr
@@ -785,7 +890,7 @@
           Ta = Pa Tar
           Pa = Fa Par
           IdOrFunCall = 'id' IdOrFunCallr
-              [0032, 0020] (0001,                   ID) {n}
+              [0038, 0020] (0001,                   ID) {n}
           IdOrFunCallr = &
           Par = &
           Tar = &
@@ -796,113 +901,8 @@
           Ebr = &
           Ecr = &
           LParamCallr = &
-              [0032, 0021] (0046,              OFF_PAR) {)}
-              [0032, 0022] (0054,            SEMICOLON) {;}
-  33  		
-  34  		println("lista dos valores digitados");
-          BodyPart = Command BodyPart
-          Command = 'println' '(' 'constStr' PrintLParam ')' ';'
-              [0034, 0003] (0040,           RW_PRINTLN) {println}
-              [0034, 0010] (0045,               ON_PAR) {(}
-              [0034, 0011] (0006,            CT_STRING) {"lista dos valores digitados"}
-          PrintLParam = &
-              [0034, 0040] (0046,              OFF_PAR) {)}
-              [0034, 0041] (0054,            SEMICOLON) {;}
-  35  		for (int i : 0, 1, n){
-          BodyPart = Command BodyPart
-          Command = 'forLoop' ForParams
-              [0035, 0003] (0031,               RW_FOR) {for}
-          ForParams = '(' 'typeInt' 'id' ':'  Ea ',' Ea ForStep ')' Body
-              [0035, 0007] (0045,               ON_PAR) {(}
-              [0035, 0008] (0032,               RW_INT) {int}
-              [0035, 0012] (0001,                   ID) {i}
-              [0035, 0014] (0050,                COLON) {:}
-          Ea = Ta Ear
-          Ta = Pa Tar
-          Pa = Fa Par
-          Fa = 'constInt'
-              [0035, 0016] (0004,               CT_INT) {0}
-          Par = &
-          Tar = &
-          Ear = &
-              [0035, 0017] (0061,                  SEP) {,}
-          Ea = Ta Ear
-          Ta = Pa Tar
-          Pa = Fa Par
-          Fa = 'constInt'
-              [0035, 0019] (0004,               CT_INT) {1}
-          Par = &
-          Tar = &
-          Ear = &
-          ForStep = ',' Ea
-              [0035, 0020] (0061,                  SEP) {,}
-          Ea = Ta Ear
-          Ta = Pa Tar
-          Pa = Fa Par
-          IdOrFunCall = 'id' IdOrFunCallr
-              [0035, 0022] (0001,                   ID) {n}
-          IdOrFunCallr = &
-          Par = &
-          Tar = &
-          Ear = &
-              [0035, 0023] (0046,              OFF_PAR) {)}
-          Body = '{' BodyPart '}'
-              [0035, 0024] (0047,             ON_BRACE) {{}
-  36  			int a = array [ i ];
-          BodyPart = DeclId BodyPart
-          DeclId = Type LId ';'
-          Type = 'int'
-              [0036, 0004] (0032,               RW_INT) {int}
-          LId = Id AttrOpt LIdr
-          Id = 'id' ArrayOpt
-              [0036, 0008] (0001,                   ID) {a}
-          ArrayOpt = &
-          AttrOpt = '=' Ec
-              [0036, 0010] (0010,               OP_ATR) {=}
-          Ec = Fc Ecr
-          Eb = Tb Ebr
-          Tb = Fb Tbr
-          Fb = Ra Fbr
-          Ra = Ea Rar
-          Ea = Ta Ear
-          Ta = Pa Tar
-          Pa = Fa Par
-          IdOrFunCall = 'id' IdOrFunCallr
-              [0036, 0012] (0001,                   ID) {array}
-          IdOrFunCallr = '[' Ea ']'
-              [0036, 0018] (0008,           ON_BRACKET) {[}
-          Ea = Ta Ear
-          Ta = Pa Tar
-          Pa = Fa Par
-          IdOrFunCall = 'id' IdOrFunCallr
-              [0036, 0020] (0001,                   ID) {i}
-          IdOrFunCallr = &
-          Par = &
-          Tar = &
-          Ear = &
-              [0036, 0022] (0009,          OFF_BRACKET) {]}
-          Par = &
-          Tar = &
-          Ear = &
-          Rar = &
-          Fbr = &
-          Tbr = &
-          Ebr = &
-          Ecr = &
-          LIdr = &
-              [0036, 0023] (0054,            SEMICOLON) {;}
-  37  			println (a);
-          BodyPart = Command BodyPart
-          Command = 'println' '(' 'constStr' PrintLParam ')' ';'
-              [0037, 0004] (0040,           RW_PRINTLN) {println}
-              [0037, 0012] (0045,               ON_PAR) {(}
-              [0037, 0013] (0001,                   ID) {a}
-          PrintLParam = &
-              [0037, 0014] (0046,              OFF_PAR) {)}
-              [0037, 0015] (0054,            SEMICOLON) {;}
-  38  		}
-          BodyPart = &
-              [0038, 0003] (0048,            OFF_BRACE) {}}
+              [0038, 0021] (0046,              OFF_PAR) {)}
+              [0038, 0022] (0054,            SEMICOLON) {;}
   39  		
   40  		println("valores ordenados");
           BodyPart = Command BodyPart
