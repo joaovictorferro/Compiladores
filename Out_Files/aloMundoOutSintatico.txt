@@ -1,0 +1,48 @@
+   1  fun int main ( ) {
+          S = FunDecl S
+          FunDecl = 'fun' Type FunName '(' LParamDecl ')' Body
+              [0001, 0001] (0026,               RW_FUN) {fun}
+          Type = 'int'
+              [0001, 0005] (0032,               RW_INT) {int}
+          FunName = 'main'
+              [0001, 0009] (0053,              RW_MAIN) {main}
+              [0001, 0014] (0045,               ON_PAR) {(}
+          LParamDecl = &
+              [0001, 0016] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0001, 0018] (0047,             ON_BRACE) {{}
+   2  	print("Alo Mundo!");
+          BodyPart = Command BodyPart
+          Command = 'print' '(' 'constStr' PrintLParam ')' ';'
+              [0002, 0002] (0039,             RW_PRINT) {print}
+              [0002, 0007] (0045,               ON_PAR) {(}
+              [0002, 0008] (0006,            CT_STRING) {"Alo Mundo!"}
+          PrintLParam = &
+              [0002, 0020] (0046,              OFF_PAR) {)}
+              [0002, 0021] (0054,            SEMICOLON) {;}
+   3  	return 0;
+          BodyPart = 'return' Return ';'
+              [0003, 0002] (0027,            RW_RETURN) {return}
+          Return = Ec
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'constInt'
+              [0003, 0009] (0004,               CT_INT) {0}
+          Par = &
+          Tar = &
+          Ear = &
+          Rar = &
+          Fbr = &
+          Tbr = &
+          Ebr = &
+          Ecr = &
+              [0003, 0010] (0054,            SEMICOLON) {;}
+   4  }
+              [0004, 0001] (0048,            OFF_BRACE) {}}
+          S = &
