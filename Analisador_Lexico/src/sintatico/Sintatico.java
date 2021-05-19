@@ -385,7 +385,7 @@ public class Sintatico {
 	}
 	
 	public void fCommand() {
-		if (checkCategory(Lexeme.RW_PRINT) || checkCategory(Lexeme.RW_PRINTLN)) {
+		if (checkCategory(Lexeme.RW_PRINT)) {
 			printProduction("Command", "'print' '(' 'constStr' PrintLParam ')' ';'");
 			System.out.println(currentToken);
 			setNextToken();
@@ -407,7 +407,29 @@ public class Sintatico {
 					}
 				}
 			}
-		} else if (checkCategory(Lexeme.RW_READ)) {
+		}else if(checkCategory(Lexeme.RW_PRINTLN)){ 
+			printProduction("Command", "'println' '(' 'constStr' PrintLParam ')' ';'");
+			System.out.println(currentToken);
+			setNextToken();
+			if (checkCategory(Lexeme.ON_PAR)) {
+				System.out.println(currentToken);
+				setNextToken();
+				if (checkCategory(Lexeme.CT_STRING, Lexeme.ID)) {
+					System.out.println(currentToken);
+					setNextToken();
+					fPrintLParam();
+					if (checkCategory(Lexeme.OFF_PAR)) {
+						System.out.println(currentToken);
+						setNextToken();
+						if (!checkCategory(Lexeme.SEMICOLON)) {
+						} else {
+							System.out.println(currentToken);
+							setNextToken();
+						}
+					}
+				}
+			}
+		}else if (checkCategory(Lexeme.RW_READ)) {
 			printProduction("Command", "'scan' '(' ScanLParam ')' ';'");
 			System.out.println(currentToken);
 			setNextToken();
