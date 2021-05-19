@@ -29,13 +29,13 @@ proc shellSort (int array [ ] , int n) {
 			read( array [ i ] );
 		}
 		
-		shellSort (array,n);
-		
 		println("lista dos valores digitados");
 		for (int i : 0, 1, n){
 			int a = array [ i ];
 			println (a);
 		}
+		
+		shellSort (array,n);
 		
 		println("valores ordenados");
 		for(int i : 0 , 1 , n) {
