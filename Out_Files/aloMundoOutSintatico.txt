@@ -1,6 +1,6 @@
    1  fun int main ( ) {
-          S = FunDecl S
-          FunDecl = 'fun' Type FunName '(' LParamDecl ')' Body
+          S = FunDecla S
+          FunDecla = 'fun' Type FunName '(' ParamDecla ')' Body
               [0001, 0001] (0026,               RW_FUN) {fun}
           Type = 'int'
               [0001, 0005] (0032,               RW_INT) {int}
@@ -13,11 +13,11 @@
               [0001, 0018] (0047,             ON_BRACE) {{}
    2  	print("Alo Mundo!");
           BodyPart = Command BodyPart
-          Command = 'print' '(' 'constStr' PrintLParam ')' ';'
+          Command = 'print' '(' 'CT_STRING' PrintParam ')' ';'
               [0002, 0002] (0039,             RW_PRINT) {print}
               [0002, 0007] (0045,               ON_PAR) {(}
               [0002, 0008] (0006,            CT_STRING) {"Alo Mundo!"}
-          PrintLParam = &
+          PrintParam = &
               [0002, 0020] (0046,              OFF_PAR) {)}
               [0002, 0021] (0054,            SEMICOLON) {;}
    3  	return 0;
@@ -32,7 +32,7 @@
           Ea = Ta Ear
           Ta = Pa Tar
           Pa = Fa Par
-          Fa = 'constInt'
+          Fa = 'CT_INT'
               [0003, 0009] (0004,               CT_INT) {0}
           Par = &
           Tar = &
