@@ -441,7 +441,7 @@ public class Sintatico {
 				} 
 			} 
 		} else if (checkCategory(Lexeme.RW_WHILE)) {
-			printProduction("Command", "'RW_WHILE' '(' Eb ')' Body");
+			printProduction("Command", "'while' '(' Eb ')' Body");
 			System.out.println(currentToken);
 			setNextToken();
 			if (checkCategory(Lexeme.ON_PAR)) {
@@ -455,7 +455,7 @@ public class Sintatico {
 				} 
 			} 
 		} else if (checkCategory(Lexeme.RW_FOR)) {
-			printProduction("Command", "'RW_FOR' ForParams");
+			printProduction("Command", "'for' ForParams");
 			System.out.println(currentToken);
 			setNextToken();
 			ForParams();
