@@ -478,8 +478,10 @@ public class JLScanner {
 		}
 		if (s != null) {
 			txtConteudo = s;
-			printCodeLine(s);
-			txtConteudo+= " ";
+			if (!s.matches("\\s*")) {
+				printCodeLine(s);
+				txtConteudo+= " ";
+			}
 			++line;
 			pos = 0;
 			column = 1;
