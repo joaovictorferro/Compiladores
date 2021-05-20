@@ -1,32 +1,32 @@
-   1  proc shellSort (int array [ ] , int n) {
+   1    proc shellSort (int array [ ] , int n) {
           S = ProcDecla S
           ProcDecla = 'proc' FunName '(' ParamDecla ')' Body
-              [0001, 0001] (0052,              RW_PROC) {proc}
+              [0001, 0003] (0052,              RW_PROC) {proc}
           FunName = 'id'
-              [0001, 0006] (0001,                   ID) {shellSort}
-              [0001, 0016] (0045,               ON_PAR) {(}
+              [0001, 0008] (0001,                   ID) {shellSort}
+              [0001, 0018] (0045,               ON_PAR) {(}
           ParamDecla = Type 'id' ArrayOpt ParamDeclar
           Type = 'int'
-              [0001, 0017] (0032,               RW_INT) {int}
-              [0001, 0021] (0001,                   ID) {array}
+              [0001, 0019] (0032,               RW_INT) {int}
+              [0001, 0023] (0001,                   ID) {array}
           ArrayOpt = '[' Ea ']'
-              [0001, 0027] (0008,           ON_BRACKET) {[}
+              [0001, 0029] (0008,           ON_BRACKET) {[}
           Ea = Ta Ear
           Ta = Pa Tar
           Pa = Fa Par
           Par = &
           Tar = &
           Ear = &
-              [0001, 0029] (0009,          OFF_BRACKET) {]}
+              [0001, 0031] (0009,          OFF_BRACKET) {]}
           ParamDeclar = ',' Type 'id' ArrayOpt ParamDeclar
-              [0001, 0031] (0061,                  SEP) {,}
+              [0001, 0033] (0061,                  SEP) {,}
           Type = 'int'
-              [0001, 0033] (0032,               RW_INT) {int}
-              [0001, 0037] (0001,                   ID) {n}
+              [0001, 0035] (0032,               RW_INT) {int}
+              [0001, 0039] (0001,                   ID) {n}
           ArrayOpt = &
-              [0001, 0038] (0046,              OFF_PAR) {)}
+              [0001, 0040] (0046,              OFF_PAR) {)}
           Body = '{' BodyPart '}'
-              [0001, 0040] (0047,             ON_BRACE) {{}
+              [0001, 0042] (0047,             ON_BRACE) {{}
    2  		int h = 1, c , j;
           BodyPart = DeclaId BodyPart
           DeclaId = Type LId ';'
@@ -603,7 +603,6 @@
   19  	}
           BodyPart = &
               [0019, 0002] (0048,            OFF_BRACE) {}}
-  20  	
   21  	fun int main() {
           S = FunDecla S
           FunDecla = 'fun' Type FunName '(' ParamDecla ')' Body
@@ -746,7 +745,6 @@
   29  		}
           BodyPart = &
               [0029, 0003] (0048,            OFF_BRACE) {}}
-  30  		
   31  		println("lista dos valores digitados");
           BodyPart = Command BodyPart
           Command = 'println' '(' 'CT_STRING' PrintLParam ')' ';'
@@ -851,7 +849,6 @@
   35  		}
           BodyPart = &
               [0035, 0003] (0048,            OFF_BRACE) {}}
-  36  		
   37  		shellSort (array,n);
           BodyPart = BodyPartr ';' BodyPart
           BodyPartr = 'id' ParamAtr
@@ -902,7 +899,6 @@
           Paramr = &
               [0037, 0021] (0046,              OFF_PAR) {)}
               [0037, 0022] (0054,            SEMICOLON) {;}
-  38  		
   39  		println("valores ordenados");
           BodyPart = Command BodyPart
           Command = 'println' '(' 'CT_STRING' PrintLParam ')' ';'
