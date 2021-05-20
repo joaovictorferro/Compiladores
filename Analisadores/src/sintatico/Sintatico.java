@@ -15,7 +15,7 @@ public class Sintatico {
 	public Sintatico(String a) {
 			lexicalScanner = new JLScanner(a);
 			setNextToken ();
-			FS();
+			S();
 	}
 	
 	public void setNextToken() {
@@ -39,40 +39,40 @@ public class Sintatico {
 		System.out.println(String.format(format, "", left, right));
 	}
 	
-	public void FS() {
+	public void S() {
 		if (checkCategory(Lexeme.CT_VAR, Lexeme.RW_INT, Lexeme.RW_FLOAT, Lexeme.RW_BOOL, Lexeme.RW_CHAR, Lexeme.RW_STRING)) {
-			printProduction("S", "DeclId S");
-			fDeclId();
-			FS();
+			printProduction("S", "DeclaId S");
+			DeclaId();
+			S();
 		} else if (checkCategory(Lexeme.RW_FUN)) {
-			printProduction("S", "FunDecl S");
-			fFunDecl();
-			FS();
+			printProduction("S", "FunDecla S");
+			FunDecla();
+			S();
 		} else if (checkCategory(Lexeme.RW_PROC)) {
-			printProduction("S", "ProcDecl S");
-			fProcDecl();
-			FS();
+			printProduction("S", "ProcDecla S");
+			ProcDecla();
+			S();
 		} else {
 			printProduction("S", epsilon);
 		}
 	}
 	
-	public void fDeclId() {
+	public void DeclaId() {
 		if (checkCategory(Lexeme.RW_INT, Lexeme.RW_FLOAT, Lexeme.RW_BOOL, Lexeme.RW_CHAR, Lexeme.RW_STRING)) {
-			printProduction("DeclId", "Type LId ';'");
-			fType();
-			fLId();
+			printProduction("DeclaId", "Type LId ';'");
+			Type();
+			LId();
 			if (!checkCategory(Lexeme.SEMICOLON)){
 			} else {
 				System.out.println(currentToken);
 				setNextToken();
 			}
 		} else if (checkCategory(Lexeme.CT_VAR)) {
-			printProduction("DeclId", "'const' Type LId ';'");
+			printProduction("DeclaId", "'const' Type LId ';'");
 			System.out.println(currentToken);
 			setNextToken();
-			fType();
-			fLId();
+			Type();
+			LId();
 			if (checkCategory(Lexeme.SEMICOLON)) {
 				System.out.println(currentToken);
 				setNextToken();
@@ -80,7 +80,7 @@ public class Sintatico {
 		}
 	}
 	
-	public void fType() {
+	public void Type() {
 		if (checkCategory(Lexeme.RW_INT)) {
 			printProduction("Type", "'int'");
 			System.out.println(currentToken);
@@ -104,69 +104,69 @@ public class Sintatico {
 		}
 	}
 
-	public void fLId() {
+	public void LId() {
 		if (checkCategory(Lexeme.ID)) {
-			printProduction("LId", "Id AttrOpt LIdr");
-			fId();
-			fAttrOpt();
-			fLIdr();
+			printProduction("LId", "Id AtriOpt LIdr");
+			Id();
+			AtriOpt();
+			LIdr();
 		}
 	}
 	
-	public void fLIdr() {
+	public void LIdr() {
 		if (checkCategory(Lexeme.SEP)) {
-			printProduction("LIdr", "',' Id AttrOpt LIdr");
+			printProduction("LIdr", "',' Id AtriOpt LIdr");
 			System.out.println(currentToken);
 			setNextToken();
-			fId();
-			fAttrOpt();
-			fLIdr();
+			Id();
+			AtriOpt();
+			LIdr();
 		} else {
 			printProduction("LIdr", epsilon);
 		}
 	}
 
-	public void fId() {
+	public void Id() {
 		if (checkCategory(Lexeme.ID)) {
 			printProduction("Id", "'id' ArrayOpt");
 			System.out.println(currentToken);
 			setNextToken();
-			fArrayOpt();
+			ArrayOpt();
 		}
 	}
 	
-	public void fAttrOpt() {
+	public void AtriOpt() {
 		if (checkCategory(Lexeme.OP_ATR)) {
-			printProduction("AttrOpt", "'=' Ec");
+			printProduction("AtriOpt", "'=' Ec");
 			System.out.println(currentToken);
 			setNextToken();
-			fEc();
+			Ec();
 		} else {
-			printProduction("AttrOpt", epsilon);
+			printProduction("AtriOpt", epsilon);
 		}
 	}
 	
-	public void fFunDecl() {
+	public void FunDecla() {
 		if (checkCategory(Lexeme.RW_FUN)) {
-			printProduction("FunDecl", "'fun' Type FunName '(' LParamDecl ')' Body");
+			printProduction("FunDecla", "'fun' Type FunName '(' ParamDecla ')' Body");
 			System.out.println(currentToken);
 			setNextToken();
-			fType();
-			fFunName();
+			Type();
+			FunName();
 			if (checkCategory(Lexeme.ON_PAR)) {
 				System.out.println(currentToken);
 				setNextToken();
-				fLParamDecl();
+				ParamDecla();
 				if (checkCategory(Lexeme.OFF_PAR)) {
 					System.out.println(currentToken);
 					setNextToken();
-					fBody();
+					Body();
 				} 
 			}
 		}
 	}
 	
-	public void fFunName() {
+	public void FunName() {
 		if (checkCategory(Lexeme.ID)) {
 			printProduction("FunName", "'id'");
 			System.out.println(currentToken);
@@ -178,66 +178,65 @@ public class Sintatico {
 		}
 	}
 
-	public void fLParamCall() {
+	public void Param() {
 		if (checkCategory(Lexeme.ID, Lexeme.ON_PAR, Lexeme.OP_SUB, Lexeme.CT_BOOL, Lexeme.CT_CHAR, Lexeme.CT_FLOAT, Lexeme.CT_INT, Lexeme.CT_STRING)) {
-			printProduction("LParamCall", "Ec LParamCallr");
-			fEc();
-			fLParamCallr();
+			printProduction("Param", "Ec Paramr");
+			Ec();
+			Paramr();
 		} else {
-			printProduction("LParamCall", epsilon);
+			printProduction("Param", epsilon);
 		}
 	}
 
-	public void fLParamCallr() {
+	public void Paramr() {
 		if (checkCategory(Lexeme.SEP)) {
-			printProduction("LParamCallr", "',' Ec LParamCallr");
+			printProduction("Paramr", "',' Ec Paramr");
 			System.out.println(currentToken);
 			setNextToken();
-			fEc();
-			fLParamCallr();
+			Ec();
+			Paramr();
 		} else {
-			printProduction("LParamCallr", epsilon);
+			printProduction("Paramr", epsilon);
 		}
 	}
 	
-	public void fLParamDecl() {
+	public void ParamDecla() {
 		if (checkCategory(Lexeme.RW_BOOL, Lexeme.RW_CHAR, Lexeme.RW_FLOAT, Lexeme.RW_INT, Lexeme.RW_STRING)) {			
-			printProduction("LParamDecl", "Type 'id' ArrayOpt LParamDeclr");
-			fType();
+			printProduction("ParamDecla", "Type 'id' ArrayOpt ParamDeclar");
+			Type();
 			if (checkCategory(Lexeme.ID)) {
 				System.out.println(currentToken);
 				setNextToken();
-				fArrayOpt();
-				fLParamDeclr();
+				ArrayOpt();
+				ParamDeclar();
 			} 
 		}else {
 				printProduction("LParamDecl", epsilon);
 			}
 		}
 	
-	public void fLParamDeclr() {
+	public void ParamDeclar() {
 		if (checkCategory(Lexeme.SEP)) {
-			printProduction("LParamDeclr", "',' Type 'id' ArrayOpt LParamDeclr");
+			printProduction("ParamDeclar", "',' Type 'id' ArrayOpt ParamDeclar");
 			System.out.println(currentToken);
 			setNextToken();
-			fType();
+			Type();
 			if (checkCategory(Lexeme.ID)) {
 				System.out.println(currentToken);
 				setNextToken();
-				fArrayOpt();
-				fLParamDeclr();
+				ArrayOpt();
+				ParamDeclar();
 			}
 		}
 	}
 	
-	public void fArrayOpt() {
+	public void ArrayOpt() {
 		if (checkCategory(Lexeme.ON_BRACKET)) {
 			printProduction("ArrayOpt", "'[' Ea ']'");
 			System.out.println(currentToken);
 			setNextToken();
-			fEa();
-			if (!checkCategory(Lexeme.OFF_BRACKET)) {
-			} else {
+			Ea();
+			if (checkCategory(Lexeme.OFF_BRACKET)) {
 				System.out.println(currentToken);
 				setNextToken();
 			}
@@ -246,66 +245,61 @@ public class Sintatico {
 		}
 	}
 
-	public void fProcDecl() {
+	public void ProcDecla() {
 		if (checkCategory(Lexeme.RW_PROC)) {
-			printProduction("ProcDecl", "'proc' FunName '(' LParamDecl ')' Body");
+			printProduction("ProcDecla", "'proc' FunName '(' ParamDecla ')' Body");
 			System.out.println(currentToken);
 			setNextToken();
-			fFunName();
+			FunName();
 			if (checkCategory(Lexeme.ON_PAR)) {
 				System.out.println(currentToken);
 				setNextToken();
-				fLParamDecl();
+				ParamDecla();
 				if (checkCategory(Lexeme.OFF_PAR)) {
 					System.out.println(currentToken);
 					setNextToken();
-					fBody();
+					Body();
 				} 
 			}
 		}
 	}
 	
-	public void fBody() {
+	public void Body() {
 		if (checkCategory(Lexeme.ON_BRACE)) {
-			++scopeCounter;
 			printProduction("Body", "'{' BodyPart '}'");
 			System.out.println(currentToken);
 			setNextToken();
-			fBodyPart();
-			if (!checkCategory(Lexeme.OFF_BRACE)) {
-			} else {
+			BodyPart();
+			if (checkCategory(Lexeme.OFF_BRACE)) {
 				System.out.println(currentToken);
 				setNextToken();
-				--scopeCounter;
 			}
 		}
 	}
 	
-	public void fBodyPart() {
+	public void BodyPart() {
 		if (checkCategory(Lexeme.CT_VAR, Lexeme.RW_INT, Lexeme.RW_FLOAT, Lexeme.RW_BOOL, Lexeme.RW_CHAR, Lexeme.RW_STRING)) {
-			printProduction("BodyPart", "DeclId BodyPart");
-			fDeclId();
-			fBodyPart();
+			printProduction("BodyPart", "DeclaId BodyPart");
+			DeclaId();
+			BodyPart();
 		} else if (checkCategory(Lexeme.RW_PRINT,Lexeme.RW_PRINTLN,Lexeme.RW_READ, Lexeme.RW_WHILE, Lexeme.RW_FOR, Lexeme.RW_IF)) {
 			printProduction("BodyPart", "Command BodyPart");
-			fCommand();
-			fBodyPart();
+			Command();
+			BodyPart();
 		} else if (checkCategory(Lexeme.ID)) {
 			printProduction("BodyPart", "BodyPartr ';' BodyPart");
-			fBodyPartr();
-			if (!checkCategory(Lexeme.SEMICOLON)) {
-			} else {
+			BodyPartr();
+			if (checkCategory(Lexeme.SEMICOLON)) {
 				System.out.println(currentToken);
 				setNextToken();
 			}
-			fBodyPart();
+			BodyPart();
 		} else if (checkCategory(Lexeme.RW_RETURN)) {
 			printProduction("BodyPart", "'return' Return ';'");
 			System.out.println(currentToken);
 			setNextToken();
-			fReturn();
-			if (!checkCategory(Lexeme.SEMICOLON)) {
-			} else {
+			Return();
+			if (checkCategory(Lexeme.SEMICOLON)) {
 				System.out.println(currentToken);
 				setNextToken();
 			}
@@ -314,79 +308,78 @@ public class Sintatico {
 		}
 	}
 	
-	public void fBodyPartr() {
+	public void BodyPartr() {
 		if (checkCategory(Lexeme.ID)) {
-			printProduction("BodyPartr", "'id' ParamAttr");
+			printProduction("BodyPartr", "'id' ParamAtr");
 			System.out.println(currentToken);
 			setNextToken();
-			fParamAttr();
+			ParamAtr();
 		}
 	}
 	
-	public void fParamAttr() {
+	public void ParamAtr() {
 		if (checkCategory(Lexeme.ON_PAR)) {
-			printProduction("ParamAttrib", "'(' LParamCall ')'");
+			printProduction("ParamAtr", "'(' Param ')'");
 			System.out.println(currentToken);
 			setNextToken();
-			fLParamCall();
-			if (!checkCategory(Lexeme.OFF_PAR)) {
-			} else {
+			Param();
+			if (checkCategory(Lexeme.OFF_PAR)) {
 				System.out.println(currentToken);
 				setNextToken();
 			}
 		} else if (checkCategory(Lexeme.OP_ATR)) {
-			printProduction("ParamAttrib", "'=' Ec LAttr");
+			printProduction("ParamAtr", "'=' Ec Atr");
 			System.out.println(currentToken);
 			setNextToken();
-			fEc();
-			fLAttr();
+			Ec();
+			Atr();
 		} else if (checkCategory(Lexeme.ON_BRACKET)) {
-			printProduction("ParamAttrib", "'[' Ea ']' '=' Ec LAttr");
+			printProduction("ParamAtr", "'[' Ea ']' '=' Ec LAttr");
 			System.out.println(currentToken);
 			setNextToken();
-			fEa();
+			Ea();
 			if (checkCategory(Lexeme.OFF_BRACKET)) {
 				System.out.println(currentToken);
 				setNextToken();
 				if (checkCategory(Lexeme.OP_ATR)) {
 					System.out.println(currentToken);
 					setNextToken();
-					fEc();
-					fLAttr();
+					Ec();
+					Atr();
 				}
 			} 
 		}
 	}
 	
-	public void fLAttr() {
+	public void Atr() {
 		if (checkCategory(Lexeme.SEP)) {
-			printProduction("LAttr", "',' Id '=' Ec LAttr");
+			printProduction("Atr", "',' Id '=' Ec Atr");
 			System.out.println(currentToken);
 			setNextToken();
-			fId();
+			Id();
 			if (checkCategory(Lexeme.OP_ATR)) {
 				System.out.println(currentToken);
 				setNextToken();
-				fEc();
-				fLAttr();
+				Ec();
+				Atr();
 			} 
 		} else {
-			printProduction("LAttr", epsilon);
+			printProduction("Atr", epsilon);
 		}
 	}
 	
-	public void fReturn() {
+	public void Return() {
 		if (checkCategory(Lexeme.ON_PAR, Lexeme.OP_SUB, Lexeme.CT_INT, Lexeme.CT_BOOL, Lexeme.CT_CHAR, Lexeme.CT_FLOAT, Lexeme.CT_STRING, Lexeme.ID)) {
 			printProduction("Return", "Ec");
-			fEc();
+			Ec();
 		} else {
 			printProduction("Return", epsilon);
 		}
 	}
 	
-	public void fCommand() {
+	public void Command() {
 		if (checkCategory(Lexeme.RW_PRINT)) {
-			printProduction("Command", "'print' '(' 'constStr' PrintLParam ')' ';'");
+			printProduction("Command", "'print' '(' 'CT_STRING' PrintParam ')' ';'");
 			System.out.println(currentToken);
 			setNextToken();
 			if (checkCategory(Lexeme.ON_PAR)) {
@@ -395,7 +388,7 @@ public class Sintatico {
 				if (checkCategory(Lexeme.CT_STRING, Lexeme.ID)) {
 					System.out.println(currentToken);
 					setNextToken();
-					fPrintLParam();
+					PrintParam();
 					if (checkCategory(Lexeme.OFF_PAR)) {
 						System.out.println(currentToken);
 						setNextToken();
@@ -408,7 +401,7 @@ public class Sintatico {
 				}
 			}
 		}else if(checkCategory(Lexeme.RW_PRINTLN)){ 
-			printProduction("Command", "'println' '(' 'constStr' PrintLParam ')' ';'");
+			printProduction("Command", "'println' '(' 'CT_STRING' PrintLParam ')' ';'");
 			System.out.println(currentToken);
 			setNextToken();
 			if (checkCategory(Lexeme.ON_PAR)) {
@@ -417,7 +410,7 @@ public class Sintatico {
 				if (checkCategory(Lexeme.CT_STRING, Lexeme.ID)) {
 					System.out.println(currentToken);
 					setNextToken();
-					fPrintLParam();
+					PrintParam();
 					if (checkCategory(Lexeme.OFF_PAR)) {
 						System.out.println(currentToken);
 						setNextToken();
@@ -430,13 +423,13 @@ public class Sintatico {
 				}
 			}
 		}else if (checkCategory(Lexeme.RW_READ)) {
-			printProduction("Command", "'scan' '(' ScanLParam ')' ';'");
+			printProduction("Command", "'read' '(' ReadParam ')' ';'");
 			System.out.println(currentToken);
 			setNextToken();
 			if (checkCategory(Lexeme.ON_PAR)) {
 				System.out.println(currentToken);
 				setNextToken();
-				fScanLParam();
+				ReadParam();
 				if (checkCategory(Lexeme.OFF_PAR)) {
 					System.out.println(currentToken);
 					setNextToken();
@@ -448,24 +441,24 @@ public class Sintatico {
 				} 
 			} 
 		} else if (checkCategory(Lexeme.RW_WHILE)) {
-			printProduction("Command", "'whileLoop' '(' Eb ')' Body");
+			printProduction("Command", "'RW_WHILE' '(' Eb ')' Body");
 			System.out.println(currentToken);
 			setNextToken();
 			if (checkCategory(Lexeme.ON_PAR)) {
 				System.out.println(currentToken);
 				setNextToken();
-				fEb();
+				Eb();
 				if (checkCategory(Lexeme.OFF_PAR)) {
 					System.out.println(currentToken);
 					setNextToken();
-					fBody();
+					Body();
 				} 
 			} 
 		} else if (checkCategory(Lexeme.RW_FOR)) {
-			printProduction("Command", "'forLoop' ForParams");
+			printProduction("Command", "'RW_FOR' ForParams");
 			System.out.println(currentToken);
 			setNextToken();
-			fForParams();
+			ForParams();
 		} else if (checkCategory(Lexeme.RW_IF)) {
 			printProduction("Command", "'condIf' '(' Eb ')' Body Ifr");
 			System.out.println(currentToken);
@@ -473,56 +466,56 @@ public class Sintatico {
 			if (checkCategory(Lexeme.ON_PAR)) {
 				System.out.println(currentToken);
 				setNextToken();
-				fEb();
+				Eb();
 				if (checkCategory(Lexeme.OFF_PAR)) {
 					System.out.println(currentToken);
 					setNextToken();
-					fBody();
-					fIfr();
+					Body();
+					Ifr();
 				} 
 			} 
 		}
 	}
 	
-	public void fPrintLParam() {
+	public void PrintParam() {
 		if (checkCategory(Lexeme.SEP)) {
-			printProduction("PrintLParam", "',' Ec PrintLParam");
+			printProduction("PrintParam", "',' Ec PrintParam");
 			System.out.println(currentToken);
 			setNextToken();
-			fEc();
-			fPrintLParam();
+			Ec();
+			PrintParam();
 		} else {
-			printProduction("PrintLParam", epsilon);
+			printProduction("PrintParam", epsilon);
 		}
 	}
 	
-	public void fScanLParam() {
+	public void ReadParam() {
 		if (checkCategory(Lexeme.ID)) {
-			printProduction("ScanLParam", "'id' ArrayOpt ScanLParamr");
+			printProduction("ReadParam", "'id' ArrayOpt ReadParamr");
 			System.out.println(currentToken);
 			setNextToken();
-			fArrayOpt();
-			fScanLParamr();
+			ArrayOpt();
+			ReadParamr();
 		} 
 	}
 	
-	public void fScanLParamr() {
+	public void ReadParamr() {
 		if (checkCategory(Lexeme.SEP)) {
-			printProduction("ScanLParamr", "',' 'id' ArrayOpt ScanLParamr");
+			printProduction("ReadParamr", "',' 'id' ArrayOpt ReadParamr");
 			System.out.println(currentToken);
 			setNextToken();
 			if (checkCategory(Lexeme.ID)) {
 				System.out.println(currentToken);
 				setNextToken();
-				fArrayOpt();
-				fScanLParamr();
+				ArrayOpt();
+				ReadParamr();
 			}
 		} else {
-			printProduction("ScanLParamr", epsilon);
+			printProduction("ReadParamr", epsilon);
 		}
 	}
 	
-	public void fForParams() {
+	public void ForParams() {
 		if (checkCategory(Lexeme.ON_PAR)) {
 			printProduction("ForParams", "'(' 'typeInt' 'id' ':'  Ea ',' Ea ForStep ')' Body");
 			System.out.println(currentToken);
@@ -536,16 +529,16 @@ public class Sintatico {
 					if (checkCategory(Lexeme.COLON)) {
 						System.out.println(currentToken);
 						setNextToken();
-						fEa();
+						Ea();
 							if (checkCategory(Lexeme.SEP)) {
 								System.out.println(currentToken);
 								setNextToken();
-								fEa();
-								fForStep();
+								Ea();
+								ForStep();
 								if (checkCategory(Lexeme.OFF_PAR)) {
 									System.out.println(currentToken);
 									setNextToken();
-									fBody();
+									Body();
 								}
 
 							}
@@ -555,288 +548,285 @@ public class Sintatico {
 		} 
 	}
 	
-	public void fForStep() {
+	public void ForStep() {
 		if (checkCategory(Lexeme.SEP)) {
 			printProduction("ForStep", "',' Ea");
 			System.out.println(currentToken);
 			setNextToken();
-			fEa();
+			Ea();
 		} else {
 			printProduction("ForStep", epsilon);
 		}
 	}
 	
-	public void fIfr() {
+	public void Ifr() {
 		if (checkCategory(Lexeme.RW_ELSE)) {
 			printProduction("Ifr", "'condElse' Body");
 			System.out.println(currentToken);
 			setNextToken();
-			fBody();
+			Body();
 		} else {
 			printProduction("Ifr", epsilon);
 		}
 	}
 	
-	public void fEc() {
+	public void Ec() {
 		printProduction("Ec", "Fc Ecr");
-		fEb();
-		fEcr();
+		Eb();
+		Ecr();
 	}
 	
-	public void fEcr() {
+	public void Ecr() {
 		if (checkCategory(Lexeme.OP_CONC)) {
-			printProduction("Ecr", "'opConcat' Fc Ecr");
+			printProduction("Ecr", "'OP_CONC' Fc Ecr");
 			System.out.println(currentToken);
 			setNextToken();
-			fEb();
-			fEcr();
+			Eb();
+			Ecr();
 		} else {
 			printProduction("Ecr", epsilon);
 		}
 	}
 	
-	public void fEb() {
+	public void Eb() {
 		printProduction("Eb", "Tb Ebr");
-		fTb();
-		fEbr();
+		Tb();
+		Ebr();
 	}
 	
-	public void fEbr() {
+	public void Ebr() {
 		if (checkCategory(Lexeme.OP_OR)) {
-			printProduction("Ebr", "'opOr' Tb Ebr");
+			printProduction("br", "'OP_OR' Tb Ebr");
 			System.out.println(currentToken);
 			setNextToken();
-			fTb();
-			fEbr();
+			Tb();
+			Ebr();
 		} else {
 			printProduction("Ebr", epsilon);
 		}
 	}
 	
-	public void fTb() {
+	public void Tb() {
 		printProduction("Tb", "Fb Tbr");
-		fFb();
-		fTbr();
+		Fb();
+		Tbr();
 	}
 	
-	public void fTbr() {
+	public void Tbr() {
 		if (checkCategory(Lexeme.OP_AND)) {
-			printProduction("Tbr", "'opAnd' Fb Tbr");
+			printProduction("Tbr", "'OP_AND' Fb Tbr");
 			System.out.println(currentToken);
 			setNextToken();
-			fFb();
-			fTbr();
+			Fb();
+			Tbr();
 		} else {
 			printProduction("Tbr", epsilon);
 		}
 	}
 	
-	public void fFb() {
+	public void Fb() {
 		if (checkCategory(Lexeme.OP_NOT)) {
-			printProduction("Fb", "'opNot' Fb");
+			printProduction("Fb", "'OP_NOT' Fb");
 			System.out.println(currentToken);
 			setNextToken();
-			fFb();
+			Fb();
 		} else if (checkCategory(Lexeme.ON_PAR, Lexeme.OP_SUB, Lexeme.CT_INT, Lexeme.CT_BOOL, Lexeme.CT_CHAR, Lexeme.CT_FLOAT, Lexeme.CT_STRING, Lexeme.ID)) {
 			printProduction("Fb", "Ra Fbr");
-			fRa();
-			fFbr();
+			Ra();
+			Fbr();
 		}
 	}
 	
-	public void fFbr() {
+	public void Fbr() {
 		if (checkCategory(Lexeme.OP_GREATER)) {
-			printProduction("Fbr", "'opGreater' Ra Fbr");
+			printProduction("Fbr", "'OP_GREATER' Ra Fbr");
 			System.out.println(currentToken);
 			setNextToken();
-			fRa();
-			fFbr();
+			Ra();
+			Fbr();
 		} else if (checkCategory(Lexeme.OP_LESS)) {
-			printProduction("Fbr", "'opLesser' Ra Fbr");
+			printProduction("Fbr", "'OP_LESS' Ra Fbr");
 			System.out.println(currentToken);
 			setNextToken();
-			fRa();
-			fFbr();
+			Ra();
+			Fbr();
 		} else if (checkCategory(Lexeme.OP_GRTEREQ)) {
-			printProduction("Fbr", "'opGreq' Ra Fbr");
+			printProduction("Fbr", "'OP_GRTEREQ' Ra Fbr");
 			System.out.println(currentToken);
 			setNextToken();
-			fRa();
-			fFbr();
+			Ra();
+			Fbr();
 		} else if (checkCategory(Lexeme.OP_LESSEQ)) {
-			printProduction("Fbr", "'opLeq' Ra Fbr");
+			printProduction("Fbr", "'OP_LESSEQ' Ra Fbr");
 			System.out.println(currentToken);
 			setNextToken();
-			fRa();
-			fFbr();
+			Ra();
+			Fbr();
 		} else {
 			printProduction("Fbr", epsilon);
 		}
 	}
 	
-	public void fRa() {
+	public void Ra() {
 		printProduction("Ra", "Ea Rar");
-		fEa();
-		fRar();
+		Ea();
+		Rar();
 	}
 	
-	public void fRar() {
+	public void Rar() {
 		if (checkCategory(Lexeme.OP_REL)) {
-			printProduction("Rar", "'opEquals' Ea Rar");
+			printProduction("Rar", "'OP_REL' Ea Rar");
 			System.out.println(currentToken);
 			setNextToken();
-			fEa();
-			fRar();
+			Ea();
+			Rar();
 		} else if (checkCategory(Lexeme.OP_RELNOT)) {
-			printProduction("Rar", "'opNotEqual' Ea Rar");
+			printProduction("Rar", "'OP_RELNOT' Ea Rar");
 			System.out.println(currentToken);
 			setNextToken();
-			fEa();
-			fRar();
+			Ea();
+			Rar();
 		} else {
 			printProduction("Rar", epsilon);
 		}
 	}
 	
-	public void fEa() {
+	public void Ea() {
 		printProduction("Ea", "Ta Ear");
-		fTa();
-		fEar();
+		Ta();
+		Ear();
 	}
 	
-	public void fEar() {
+	public void Ear() {
 		if (checkCategory(Lexeme.OP_AD)) {
-			printProduction("Ear", "'opAdd' Ta Ear");
+			printProduction("Ear", "'OP_AD' Ta Ear");
 			System.out.println(currentToken);
 			setNextToken();
-			fTa();
-			fEar();
+			Ta();
+			Ear();
 		} else if (checkCategory(Lexeme.OP_SUB)) {
-			printProduction("Ear", "'opSub' Ta Ear");
+			printProduction("Ear", "'OP_SUB' Ta Ear");
 			System.out.println(currentToken);
 			setNextToken();
-			fTa();
-			fEar();
+			Ta();
+			Ear();
 		} else {
 			printProduction("Ear", epsilon);
 		}
 	}
 	
-	public void fTa() {
+	public void Ta() {
 		printProduction("Ta", "Pa Tar");
-		fPa();
-		fTar();
+		Pa();
+		Tar();
 	}
 	
-	public void fTar() {
+	public void Tar() {
 		if (checkCategory(Lexeme.OP_MULT)) {
-			printProduction("Tar", "'opMult' Pa Tar");
+			printProduction("Tar", "'OP_MULT' Pa Tar");
 			System.out.println(currentToken);
 			setNextToken();
-			fPa();
-			fTar();
+			Pa();
+			Tar();
 		} else if (checkCategory(Lexeme.OP_DIV)) {
-			printProduction("Tar", "'opDiv' Pa Tar");
+			printProduction("Tar", "'OP_DIV' Pa Tar");
 			System.out.println(currentToken);
 			setNextToken();
-			fPa();
-			fTar();
+			Pa();
+			Tar();
 		} else {
 			printProduction("Tar", epsilon);
 		}
 	}
 	
-	public void fPa() {
+	public void Pa() {
 		printProduction("Pa", "Fa Par");
-		fFa();
-		fPar();
+		Fa();
+		Par();
 	}
 	
-	public void fPar() {
+	public void Par() {
 		if (checkCategory(Lexeme.OP_MOD)) {
-			printProduction("Par", "'opPow' Fa Par");
+			printProduction("Par", "'OP_MOD' Fa Par");
 			System.out.println(currentToken);
 			setNextToken();
-			fFa();
-			fPar();
+			Fa();
+			Par();
 		} else {
 			printProduction("Par", epsilon);
 		}
 	}
 	
-	public void fFa() {
+	public void Fa() {
 		if (checkCategory(Lexeme.ON_PAR)) {
 			printProduction("Fa", "'(' Ec ')'");
 			System.out.println(currentToken);
 			setNextToken();
-			fEc();
-			if (!checkCategory(Lexeme.OFF_PAR)) {
-			} else {
+			Ec();
+			if (checkCategory(Lexeme.OFF_PAR)) {
 				System.out.println(currentToken);
 				setNextToken();
 			}
 		} else if (checkCategory(Lexeme.OP_SUB)) {
-			printProduction("Fa", "'opSub' Fa");
+			printProduction("Fa", "'OP_SUB' Fa");
 			System.out.println(currentToken);
 			setNextToken();
-			fFa();
+			Fa();
 		} else if (checkCategory(Lexeme.ID)) {
-			fIdOrFunCall();
+			IdOrFun();
 		} else if (checkCategory(Lexeme.CT_BOOL)) {
-			printProduction("Fa", "'constBool'");
+			printProduction("Fa", "'CT_BOOL'");
 			System.out.println(currentToken);
 			setNextToken();
 		} else if (checkCategory(Lexeme.CT_CHAR)) {
-			printProduction("Fa", "'constChar'");
+			printProduction("Fa", "'CT_CHAR'");
 			System.out.println(currentToken);
 			setNextToken();
 		} else if (checkCategory(Lexeme.CT_FLOAT)) {
-			printProduction("Fa", "'constFloat'");
+			printProduction("Fa", "'CT_FLOAT'");
 			System.out.println(currentToken);
 			setNextToken();
 		} else if (checkCategory(Lexeme.CT_INT)) {
-			printProduction("Fa", "'constInt'");
+			printProduction("Fa", "'CT_INT'");
 			System.out.println(currentToken);
 			setNextToken();
 		} else if (checkCategory(Lexeme.CT_STRING)) {
-			printProduction("Fa", "'constStr'");
+			printProduction("Fa", "'CT_STRING'");
 			System.out.println(currentToken);
 			setNextToken();
 		}
 	}
 	
-	public void fIdOrFunCall() {
+	public void IdOrFun() {
 		if (checkCategory(Lexeme.ID)) {
-			printProduction("IdOrFunCall", "'id' IdOrFunCallr");
+			printProduction("IdOrFun", "'id' IdOrFunr");
 			System.out.println(currentToken);
 			setNextToken();
-			fIdOrFunCallr();
+			IdOrFunr();
 		}
 	}
 	
-	public void fIdOrFunCallr() {
+	public void IdOrFunr() {
 		if (checkCategory(Lexeme.ON_PAR)) {
-			printProduction("IdOrFunCallr", "'(' LParamCall ')'");
+			printProduction("IdOrFunr", "'(' Param ')'");
 			System.out.println(currentToken);
 			setNextToken();
-			fLParamCall();
-			if (!checkCategory(Lexeme.OFF_PAR)) {
-			} else {
+			Param();
+			if (checkCategory(Lexeme.OFF_PAR)) {
 				System.out.println(currentToken);
 				setNextToken();
 			}
 		} else if (checkCategory(Lexeme.ON_BRACKET)) {
-			printProduction("IdOrFunCallr", "'[' Ea ']'");
+			printProduction("IdOrFunr", "'[' Ea ']'");
 			System.out.println(currentToken);
 			setNextToken();
-			fEa();
-			if (!checkCategory(Lexeme.OFF_BRACKET)) {
-			} else {
+			Ea();
+			if (checkCategory(Lexeme.OFF_BRACKET)) {
 				System.out.println(currentToken);
 				setNextToken();
 			}
 		} else {
-			printProduction("IdOrFunCallr", epsilon);
+			printProduction("IdOrFunr", epsilon);
 		}
 	}
 }
