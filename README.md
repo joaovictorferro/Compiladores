@@ -15,14 +15,14 @@ Equipe: Lucas A. Lisboa e João Victor Ferro
 5. Abra o terminal;
 6. Para ir à pasta que o programa deverá ser executado, utilize o comando:
 
-   ``` cd Compiladores-main/Analisador_Lexico ```
+   ``` cd Compiladores-main/Analisadores```
 
 7. Para compilar o programa, utilize o comando:
 
-   ``` javac src.main.MainClass.java ```
+   ``` javac src/main/MainClass.java ```
    
 8. Para executar o programa, utilize o comando: 
 
-   ``` java src.main.MainClass arquivo_de_entrada```
+   ``` java src/main/MainClass arquivo_de_entrada```
 
    Sendo `arquivo_de_entrada` o nome do arquivo que será a entrada do programa (o arquivo deve estar dentro da pasta Analisador_Lexico). Exemplo: aloMundo, Fibonacci, shellSort.
