@@ -1,6 +1,5 @@
 proc shellSort (int array [ ] , int n) {
 		int h = 1, c , j;
-		
 		while( h < n ) {
 			h = h * 3 + 1;
 		}
