@@ -334,7 +334,7 @@ public class Sintatico {
 			Ec();
 			Atr();
 		} else if (checkCategory(Lexeme.ON_BRACKET)) {
-			printProduction("ParamAtr", "'[' Ea ']' '=' Ec LAttr");
+			printProduction("ParamAtr", "'[' Ea ']' '=' Ec Atr");
 			System.out.println(currentToken);
 			setNextToken();
 			Ea();
