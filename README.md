@@ -27,4 +27,4 @@ Analisador Léxico e Sintático (Analisador Descendente LL(1) Preditivo Recursiv
 
    ``` java src/main/MainClass arquivo_de_entrada```
 
-   Sendo `arquivo_de_entrada` o nome do arquivo que será a entrada do programa (o arquivo deve estar dentro da pasta Analisador_Lexico). Exemplo: aloMundo, Fibonacci, shellSort.
+   Sendo `arquivo_de_entrada` o nome do arquivo que será a entrada do programa (o arquivo deve estar dentro da pasta Analisadores). Exemplo: aloMundo, Fibonacci, shellSort.
