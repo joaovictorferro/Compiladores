@@ -1,8 +1,10 @@
 # Compiladores - Linguagem Jvlal
 
-Equipe: Lucas A. Lisboa e João Victor Ferro
+Equipe: Lucas A. Lisboa e João Victor Ferro;
 
-## Passo a Passo para Executar o Analisador Léxico (Ubuntu)
+Analisador Léxico e Sintático (Analisador Descendente LL(1) Preditivo Recursivo);
+
+## Passo a Passo para Executar o Programa (Ubuntu)
 1. Certifique-se que sua máquina possui os pacotes necessários do Java instalados. Caso não, use os seguintes comandos:
    
    ``` sudo apt install  openjdk-11-jre-headless ```
