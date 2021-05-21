@@ -1,0 +1,1031 @@
+   1    proc shellSort (int array [ ] , int n) {
+          S = ProcDecla S
+          ProcDecla = 'proc' FunName '(' ParamDecla ')' Body
+              [0001, 0003] (0052,              RW_PROC) {proc}
+          FunName = 'id'
+              [0001, 0008] (0001,                   ID) {shellSort}
+              [0001, 0018] (0045,               ON_PAR) {(}
+          ParamDecla = Type 'id' ArrayOpt ParamDeclar
+          Type = 'int'
+              [0001, 0019] (0032,               RW_INT) {int}
+              [0001, 0023] (0001,                   ID) {array}
+          ArrayOpt = '[' Ea ']'
+              [0001, 0029] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0001, 0031] (0009,          OFF_BRACKET) {]}
+          ParamDeclar = ',' Type 'id' ArrayOpt ParamDeclar
+              [0001, 0033] (0061,                  SEP) {,}
+          Type = 'int'
+              [0001, 0035] (0032,               RW_INT) {int}
+              [0001, 0039] (0001,                   ID) {n}
+          ArrayOpt = epsilon
+              [0001, 0040] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0001, 0042] (0047,             ON_BRACE) {{}
+   2  		int h = 1, c , j;
+          BodyPart = DeclaId BodyPart
+          DeclaId = Type LId ';'
+          Type = 'int'
+              [0002, 0003] (0032,               RW_INT) {int}
+          LId = Id AtriOpt LIdr
+          Id = 'id' ArrayOpt
+              [0002, 0007] (0001,                   ID) {h}
+          ArrayOpt = epsilon
+          AtriOpt = '=' Ec
+              [0002, 0009] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0002, 0011] (0004,               CT_INT) {1}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          LIdr = ',' Id AtriOpt LIdr
+              [0002, 0012] (0061,                  SEP) {,}
+          Id = 'id' ArrayOpt
+              [0002, 0014] (0001,                   ID) {c}
+          ArrayOpt = epsilon
+          AtriOpt = epsilon
+          LIdr = ',' Id AtriOpt LIdr
+              [0002, 0016] (0061,                  SEP) {,}
+          Id = 'id' ArrayOpt
+              [0002, 0018] (0001,                   ID) {j}
+          ArrayOpt = epsilon
+          AtriOpt = epsilon
+          LIdr = epsilon
+              [0002, 0019] (0054,            SEMICOLON) {;}
+   3  		while( h < n ) {
+          BodyPart = Command BodyPart
+          Command = 'while' '(' Eb ')' Body
+              [0003, 0003] (0030,             RW_WHILE) {while}
+              [0003, 0008] (0045,               ON_PAR) {(}
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0003, 0010] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = 'OP_LESS' Ra Fbr
+              [0003, 0012] (0019,              OP_LESS) {<}
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0003, 0014] (0001,                   ID) {n}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+              [0003, 0016] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0003, 0018] (0047,             ON_BRACE) {{}
+   4  			h = h * 3 + 1;
+          BodyPart = BodyPartr ';' BodyPart
+          BodyPartr = 'id' ParamAtr
+              [0004, 0004] (0001,                   ID) {h}
+          ParamAtr = '=' Ec Atr
+              [0004, 0006] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0004, 0008] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = 'OP_MULT' Pa Tar
+              [0004, 0010] (0015,              OP_MULT) {*}
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0004, 0012] (0004,               CT_INT) {3}
+          Par = epsilon
+          Tar = epsilon
+          Ear = 'OP_AD' Ta Ear
+              [0004, 0014] (0013,                OP_AD) {+}
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0004, 0016] (0004,               CT_INT) {1}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Atr = epsilon
+              [0004, 0017] (0054,            SEMICOLON) {;}
+   5  		}
+          BodyPart = epsilon
+              [0005, 0003] (0048,            OFF_BRACE) {}}
+   6  		h = h / 3;
+          BodyPart = BodyPartr ';' BodyPart
+          BodyPartr = 'id' ParamAtr
+              [0006, 0003] (0001,                   ID) {h}
+          ParamAtr = '=' Ec Atr
+              [0006, 0005] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0006, 0007] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = 'OP_DIV' Pa Tar
+              [0006, 0009] (0016,               OP_DIV) {/}
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0006, 0011] (0004,               CT_INT) {3}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Atr = epsilon
+              [0006, 0012] (0054,            SEMICOLON) {;}
+   7  		while ( h > 0 ){
+          BodyPart = Command BodyPart
+          Command = 'while' '(' Eb ')' Body
+              [0007, 0003] (0030,             RW_WHILE) {while}
+              [0007, 0009] (0045,               ON_PAR) {(}
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0007, 0011] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = 'OP_GREATER' Ra Fbr
+              [0007, 0013] (0018,           OP_GREATER) {>}
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0007, 0015] (0004,               CT_INT) {0}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+              [0007, 0017] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0007, 0018] (0047,             ON_BRACE) {{}
+   8  			for (int i : h , 1 , n){
+          BodyPart = Command BodyPart
+          Command = 'for' ForParams
+              [0008, 0004] (0031,               RW_FOR) {for}
+          ForParams = '(' 'typeInt' 'id' ':'  Ea ',' Ea ForStep ')' Body
+              [0008, 0008] (0045,               ON_PAR) {(}
+              [0008, 0009] (0032,               RW_INT) {int}
+              [0008, 0013] (0001,                   ID) {i}
+              [0008, 0015] (0050,                COLON) {:}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0008, 0017] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0008, 0019] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0008, 0021] (0004,               CT_INT) {1}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          ForStep = ',' Ea
+              [0008, 0023] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0008, 0025] (0001,                   ID) {n}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0008, 0026] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0008, 0027] (0047,             ON_BRACE) {{}
+   9  				c = array(i);
+          BodyPart = BodyPartr ';' BodyPart
+          BodyPartr = 'id' ParamAtr
+              [0009, 0005] (0001,                   ID) {c}
+          ParamAtr = '=' Ec Atr
+              [0009, 0007] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0009, 0009] (0001,                   ID) {array}
+          IdOrFunr = '(' Param ')'
+              [0009, 0014] (0045,               ON_PAR) {(}
+          Param = Ec Paramr
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0009, 0015] (0001,                   ID) {i}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Paramr = epsilon
+              [0009, 0016] (0046,              OFF_PAR) {)}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Atr = epsilon
+              [0009, 0017] (0054,            SEMICOLON) {;}
+  10  				j = i;
+          BodyPart = BodyPartr ';' BodyPart
+          BodyPartr = 'id' ParamAtr
+              [0010, 0005] (0001,                   ID) {j}
+          ParamAtr = '=' Ec Atr
+              [0010, 0007] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0010, 0009] (0001,                   ID) {i}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Atr = epsilon
+              [0010, 0010] (0054,            SEMICOLON) {;}
+  11  				while ( j >= h & array [ j - h ] > c ) {
+          BodyPart = Command BodyPart
+          Command = 'while' '(' Eb ')' Body
+              [0011, 0005] (0030,             RW_WHILE) {while}
+              [0011, 0011] (0045,               ON_PAR) {(}
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0011, 0013] (0001,                   ID) {j}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = 'OP_GRTEREQ' Ra Fbr
+              [0011, 0015] (0020,           OP_GRTEREQ) {>=}
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0011, 0018] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = 'OP_AND' Fb Tbr
+              [0011, 0020] (0023,               OP_AND) {&}
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0011, 0022] (0001,                   ID) {array}
+          IdOrFunr = '[' Ea ']'
+              [0011, 0028] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0011, 0030] (0001,                   ID) {j}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = 'OP_SUB' Ta Ear
+              [0011, 0032] (0014,               OP_SUB) {-}
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0011, 0034] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0011, 0036] (0009,          OFF_BRACKET) {]}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = 'OP_GREATER' Ra Fbr
+              [0011, 0038] (0018,           OP_GREATER) {>}
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0011, 0040] (0001,                   ID) {c}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+              [0011, 0042] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0011, 0044] (0047,             ON_BRACE) {{}
+  12  					array [ j ] = array [ j - h ]; 
+          BodyPart = BodyPartr ';' BodyPart
+          BodyPartr = 'id' ParamAtr
+              [0012, 0006] (0001,                   ID) {array}
+          ParamAtr = '[' Ea ']' '=' Ec Atr
+              [0012, 0012] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0012, 0014] (0001,                   ID) {j}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0012, 0016] (0009,          OFF_BRACKET) {]}
+              [0012, 0018] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0012, 0020] (0001,                   ID) {array}
+          IdOrFunr = '[' Ea ']'
+              [0012, 0026] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0012, 0028] (0001,                   ID) {j}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = 'OP_SUB' Ta Ear
+              [0012, 0030] (0014,               OP_SUB) {-}
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0012, 0032] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0012, 0034] (0009,          OFF_BRACKET) {]}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Atr = epsilon
+              [0012, 0035] (0054,            SEMICOLON) {;}
+  13  					j = j - h ;
+          BodyPart = BodyPartr ';' BodyPart
+          BodyPartr = 'id' ParamAtr
+              [0013, 0006] (0001,                   ID) {j}
+          ParamAtr = '=' Ec Atr
+              [0013, 0008] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0013, 0010] (0001,                   ID) {j}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = 'OP_SUB' Ta Ear
+              [0013, 0012] (0014,               OP_SUB) {-}
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0013, 0014] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Atr = epsilon
+              [0013, 0016] (0054,            SEMICOLON) {;}
+  14  				}
+          BodyPart = epsilon
+              [0014, 0005] (0048,            OFF_BRACE) {}}
+  15  					array [ j ]  = c;
+          BodyPart = BodyPartr ';' BodyPart
+          BodyPartr = 'id' ParamAtr
+              [0015, 0006] (0001,                   ID) {array}
+          ParamAtr = '[' Ea ']' '=' Ec Atr
+              [0015, 0012] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0015, 0014] (0001,                   ID) {j}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0015, 0016] (0009,          OFF_BRACKET) {]}
+              [0015, 0019] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0015, 0021] (0001,                   ID) {c}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Atr = epsilon
+              [0015, 0022] (0054,            SEMICOLON) {;}
+  16  			}
+          BodyPart = epsilon
+              [0016, 0004] (0048,            OFF_BRACE) {}}
+  17  				h = h / 2;
+          BodyPart = BodyPartr ';' BodyPart
+          BodyPartr = 'id' ParamAtr
+              [0017, 0005] (0001,                   ID) {h}
+          ParamAtr = '=' Ec Atr
+              [0017, 0007] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0017, 0009] (0001,                   ID) {h}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = 'OP_DIV' Pa Tar
+              [0017, 0011] (0016,               OP_DIV) {/}
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0017, 0013] (0004,               CT_INT) {2}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Atr = epsilon
+              [0017, 0014] (0054,            SEMICOLON) {;}
+  18  		}
+          BodyPart = epsilon
+              [0018, 0003] (0048,            OFF_BRACE) {}}
+  19  	}
+          BodyPart = epsilon
+              [0019, 0002] (0048,            OFF_BRACE) {}}
+  21  	fun int main() {
+          S = FunDecla S
+          FunDecla = 'fun' Type FunName '(' ParamDecla ')' Body
+              [0021, 0002] (0026,               RW_FUN) {fun}
+          Type = 'int'
+              [0021, 0006] (0032,               RW_INT) {int}
+          FunName = 'main'
+              [0021, 0010] (0053,              RW_MAIN) {main}
+              [0021, 0014] (0045,               ON_PAR) {(}
+          LParamDecl = epsilon
+              [0021, 0015] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0021, 0017] (0047,             ON_BRACE) {{}
+  22  		int n;
+          BodyPart = DeclaId BodyPart
+          DeclaId = Type LId ';'
+          Type = 'int'
+              [0022, 0003] (0032,               RW_INT) {int}
+          LId = Id AtriOpt LIdr
+          Id = 'id' ArrayOpt
+              [0022, 0007] (0001,                   ID) {n}
+          ArrayOpt = epsilon
+          AtriOpt = epsilon
+          LIdr = epsilon
+              [0022, 0008] (0054,            SEMICOLON) {;}
+  23  		println("Tamanho do array");
+          BodyPart = Command BodyPart
+          Command = 'println' '(' 'CT_STRING' PrintLParam ')' ';'
+              [0023, 0003] (0040,           RW_PRINTLN) {println}
+              [0023, 0010] (0045,               ON_PAR) {(}
+              [0023, 0011] (0006,            CT_STRING) {"Tamanho do array"}
+          PrintParam = epsilon
+              [0023, 0029] (0046,              OFF_PAR) {)}
+              [0023, 0030] (0054,            SEMICOLON) {;}
+  24  		read(n);
+          BodyPart = Command BodyPart
+          Command = 'read' '(' ReadParam ')' ';'
+              [0024, 0003] (0038,              RW_READ) {read}
+              [0024, 0007] (0045,               ON_PAR) {(}
+          ReadParam = 'id' ArrayOpt ReadParamr
+              [0024, 0008] (0001,                   ID) {n}
+          ArrayOpt = epsilon
+          ReadParamr = epsilon
+              [0024, 0009] (0046,              OFF_PAR) {)}
+              [0024, 0010] (0054,            SEMICOLON) {;}
+  25  		int array [ n ];	
+          BodyPart = DeclaId BodyPart
+          DeclaId = Type LId ';'
+          Type = 'int'
+              [0025, 0003] (0032,               RW_INT) {int}
+          LId = Id AtriOpt LIdr
+          Id = 'id' ArrayOpt
+              [0025, 0007] (0001,                   ID) {array}
+          ArrayOpt = '[' Ea ']'
+              [0025, 0013] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0025, 0015] (0001,                   ID) {n}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0025, 0017] (0009,          OFF_BRACKET) {]}
+          AtriOpt = epsilon
+          LIdr = epsilon
+              [0025, 0018] (0054,            SEMICOLON) {;}
+  26  		println("Digite os numeros que serao ordenados");
+          BodyPart = Command BodyPart
+          Command = 'println' '(' 'CT_STRING' PrintLParam ')' ';'
+              [0026, 0003] (0040,           RW_PRINTLN) {println}
+              [0026, 0010] (0045,               ON_PAR) {(}
+              [0026, 0011] (0006,            CT_STRING) {"Digite os numeros que serao ordenados"}
+          PrintParam = epsilon
+              [0026, 0050] (0046,              OFF_PAR) {)}
+              [0026, 0051] (0054,            SEMICOLON) {;}
+  27  		for( int i : 0,1,n) {
+          BodyPart = Command BodyPart
+          Command = 'for' ForParams
+              [0027, 0003] (0031,               RW_FOR) {for}
+          ForParams = '(' 'typeInt' 'id' ':'  Ea ',' Ea ForStep ')' Body
+              [0027, 0006] (0045,               ON_PAR) {(}
+              [0027, 0008] (0032,               RW_INT) {int}
+              [0027, 0012] (0001,                   ID) {i}
+              [0027, 0014] (0050,                COLON) {:}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0027, 0016] (0004,               CT_INT) {0}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0027, 0017] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0027, 0018] (0004,               CT_INT) {1}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          ForStep = ',' Ea
+              [0027, 0019] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0027, 0020] (0001,                   ID) {n}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0027, 0021] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0027, 0023] (0047,             ON_BRACE) {{}
+  28  			read( array [ i ] );
+          BodyPart = Command BodyPart
+          Command = 'read' '(' ReadParam ')' ';'
+              [0028, 0004] (0038,              RW_READ) {read}
+              [0028, 0008] (0045,               ON_PAR) {(}
+          ReadParam = 'id' ArrayOpt ReadParamr
+              [0028, 0010] (0001,                   ID) {array}
+          ArrayOpt = '[' Ea ']'
+              [0028, 0016] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0028, 0018] (0001,                   ID) {i}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0028, 0020] (0009,          OFF_BRACKET) {]}
+          ReadParamr = epsilon
+              [0028, 0022] (0046,              OFF_PAR) {)}
+              [0028, 0023] (0054,            SEMICOLON) {;}
+  29  		}
+          BodyPart = epsilon
+              [0029, 0003] (0048,            OFF_BRACE) {}}
+  31  		println("lista dos valores digitados");
+          BodyPart = Command BodyPart
+          Command = 'println' '(' 'CT_STRING' PrintLParam ')' ';'
+              [0031, 0003] (0040,           RW_PRINTLN) {println}
+              [0031, 0010] (0045,               ON_PAR) {(}
+              [0031, 0011] (0006,            CT_STRING) {"lista dos valores digitados"}
+          PrintParam = epsilon
+              [0031, 0040] (0046,              OFF_PAR) {)}
+              [0031, 0041] (0054,            SEMICOLON) {;}
+  32  		for (int i : 0, 1, n){
+          BodyPart = Command BodyPart
+          Command = 'for' ForParams
+              [0032, 0003] (0031,               RW_FOR) {for}
+          ForParams = '(' 'typeInt' 'id' ':'  Ea ',' Ea ForStep ')' Body
+              [0032, 0007] (0045,               ON_PAR) {(}
+              [0032, 0008] (0032,               RW_INT) {int}
+              [0032, 0012] (0001,                   ID) {i}
+              [0032, 0014] (0050,                COLON) {:}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0032, 0016] (0004,               CT_INT) {0}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0032, 0017] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0032, 0019] (0004,               CT_INT) {1}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          ForStep = ',' Ea
+              [0032, 0020] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0032, 0022] (0001,                   ID) {n}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0032, 0023] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0032, 0024] (0047,             ON_BRACE) {{}
+  33  			int a = array [ i ];
+          BodyPart = DeclaId BodyPart
+          DeclaId = Type LId ';'
+          Type = 'int'
+              [0033, 0004] (0032,               RW_INT) {int}
+          LId = Id AtriOpt LIdr
+          Id = 'id' ArrayOpt
+              [0033, 0008] (0001,                   ID) {a}
+          ArrayOpt = epsilon
+          AtriOpt = '=' Ec
+              [0033, 0010] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0033, 0012] (0001,                   ID) {array}
+          IdOrFunr = '[' Ea ']'
+              [0033, 0018] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0033, 0020] (0001,                   ID) {i}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0033, 0022] (0009,          OFF_BRACKET) {]}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          LIdr = epsilon
+              [0033, 0023] (0054,            SEMICOLON) {;}
+  34  			println (a);
+          BodyPart = Command BodyPart
+          Command = 'println' '(' 'CT_STRING' PrintLParam ')' ';'
+              [0034, 0004] (0040,           RW_PRINTLN) {println}
+              [0034, 0012] (0045,               ON_PAR) {(}
+              [0034, 0013] (0001,                   ID) {a}
+          PrintParam = epsilon
+              [0034, 0014] (0046,              OFF_PAR) {)}
+              [0034, 0015] (0054,            SEMICOLON) {;}
+  35  		}
+          BodyPart = epsilon
+              [0035, 0003] (0048,            OFF_BRACE) {}}
+  37  		shellSort (array,n);
+          BodyPart = BodyPartr ';' BodyPart
+          BodyPartr = 'id' ParamAtr
+              [0037, 0003] (0001,                   ID) {shellSort}
+          ParamAtr = '(' Param ')'
+              [0037, 0013] (0045,               ON_PAR) {(}
+          Param = Ec Paramr
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0037, 0014] (0001,                   ID) {array}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Paramr = ',' Ec Paramr
+              [0037, 0019] (0061,                  SEP) {,}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0037, 0020] (0001,                   ID) {n}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          Paramr = epsilon
+              [0037, 0021] (0046,              OFF_PAR) {)}
+              [0037, 0022] (0054,            SEMICOLON) {;}
+  39  		println("valores ordenados");
+          BodyPart = Command BodyPart
+          Command = 'println' '(' 'CT_STRING' PrintLParam ')' ';'
+              [0039, 0003] (0040,           RW_PRINTLN) {println}
+              [0039, 0010] (0045,               ON_PAR) {(}
+              [0039, 0011] (0006,            CT_STRING) {"valores ordenados"}
+          PrintParam = epsilon
+              [0039, 0030] (0046,              OFF_PAR) {)}
+              [0039, 0031] (0054,            SEMICOLON) {;}
+  40  		for(int i : 0 , 1 , n) {
+          BodyPart = Command BodyPart
+          Command = 'for' ForParams
+              [0040, 0003] (0031,               RW_FOR) {for}
+          ForParams = '(' 'typeInt' 'id' ':'  Ea ',' Ea ForStep ')' Body
+              [0040, 0006] (0045,               ON_PAR) {(}
+              [0040, 0007] (0032,               RW_INT) {int}
+              [0040, 0011] (0001,                   ID) {i}
+              [0040, 0013] (0050,                COLON) {:}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0040, 0015] (0004,               CT_INT) {0}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0040, 0017] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0040, 0019] (0004,               CT_INT) {1}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          ForStep = ',' Ea
+              [0040, 0021] (0061,                  SEP) {,}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0040, 0023] (0001,                   ID) {n}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0040, 0024] (0046,              OFF_PAR) {)}
+          Body = '{' BodyPart '}'
+              [0040, 0026] (0047,             ON_BRACE) {{}
+  41  			int b = array [ i ];
+          BodyPart = DeclaId BodyPart
+          DeclaId = Type LId ';'
+          Type = 'int'
+              [0041, 0004] (0032,               RW_INT) {int}
+          LId = Id AtriOpt LIdr
+          Id = 'id' ArrayOpt
+              [0041, 0008] (0001,                   ID) {b}
+          ArrayOpt = epsilon
+          AtriOpt = '=' Ec
+              [0041, 0010] (0010,               OP_ATR) {=}
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0041, 0012] (0001,                   ID) {array}
+          IdOrFunr = '[' Ea ']'
+              [0041, 0018] (0008,           ON_BRACKET) {[}
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          IdOrFun = 'id' IdOrFunr
+              [0041, 0020] (0001,                   ID) {i}
+          IdOrFunr = epsilon
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+              [0041, 0022] (0009,          OFF_BRACKET) {]}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+          LIdr = epsilon
+              [0041, 0023] (0054,            SEMICOLON) {;}
+  42  			println(b);
+          BodyPart = Command BodyPart
+          Command = 'println' '(' 'CT_STRING' PrintLParam ')' ';'
+              [0042, 0004] (0040,           RW_PRINTLN) {println}
+              [0042, 0011] (0045,               ON_PAR) {(}
+              [0042, 0012] (0001,                   ID) {b}
+          PrintParam = epsilon
+              [0042, 0013] (0046,              OFF_PAR) {)}
+              [0042, 0014] (0054,            SEMICOLON) {;}
+  43  		}
+          BodyPart = epsilon
+              [0043, 0003] (0048,            OFF_BRACE) {}}
+  44  		return 0; 
+          BodyPart = 'return' Return ';'
+              [0044, 0003] (0027,            RW_RETURN) {return}
+          Return = Ec
+          Ec = Fc Ecr
+          Eb = Tb Ebr
+          Tb = Fb Tbr
+          Fb = Ra Fbr
+          Ra = Ea Rar
+          Ea = Ta Ear
+          Ta = Pa Tar
+          Pa = Fa Par
+          Fa = 'CT_INT'
+              [0044, 0010] (0004,               CT_INT) {0}
+          Par = epsilon
+          Tar = epsilon
+          Ear = epsilon
+          Rar = epsilon
+          Fbr = epsilon
+          Tbr = epsilon
+          Ebr = epsilon
+          Ecr = epsilon
+              [0044, 0011] (0054,            SEMICOLON) {;}
+  45  	}
+              [0045, 0002] (0048,            OFF_BRACE) {}}
+          S = epsilon
