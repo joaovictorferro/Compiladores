@@ -9,7 +9,6 @@ import src.lexico.Token;
 public class Sintatico {
 	private JLScanner lexicalScanner;
 	private Token currentToken;
-	private int scopeCounter = 0;
 	private String epsilon = "epsilon";
 	
 	public Sintatico(String a) {
